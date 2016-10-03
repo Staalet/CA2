@@ -5,7 +5,10 @@
  */
 package com.mycompany.ca2.facades;
 
-import static java.util.Collections.list;
+import com.mycompany.ca2.entities.Cityinfo;
+import com.mycompany.ca2.entities.Company;
+import com.mycompany.ca2.entities.Person;
+import java.util.List;
 
 /**
  *
@@ -13,36 +16,32 @@ import static java.util.Collections.list;
  */
 public class Facade {
 
-    public Person getPersonByPhoneNumber(int phonenumber) {
-        return phonenumber;
+    public Person getPersonByPhoneNumber(int phoneNumber) {
+        return null;
     }
 
-    public Company getCompanyByPhoneNumber(int number) {
-        return number;
+    public Company getCompanyByPhoneNumber(int phoneNumber) {
+        return null;
     }
 
     public Company getCompanyByCVR(int cvr) {
-        return cvr;
+        return null;
     }
 
-    public list<Person> getPersonsWithGivenHobbie() {
-        return Person;
+    public List<Person> getPersonsWithHobby(String hobby) {
+        return null;
     }
 
-    public list<Person> getAllPersonsByZipCode() {
-        return Person;
+    public List<Person> getAllPersonsByZipCode(int zip) {
+        return null;
     }
 
-    public list<Cityinfo> getAllZipCodesInCountry() {
-        return Cityinfo;
+    public List<Cityinfo> getAllZipCodesInCountry(String country) {
+        return null;
     }
 
-    public list<PhoneNumber> getPhoneNumbers() {
-        return PhoneNumber;
-    }
-
-    public list<Company> getCompaniesWithEmployeeCount() {
-            return Company;
+    public List<Company> getCompaniesWithEmployeeCountOverX(int x) {
+        return null;
     }
 
     public void addAdress() {
@@ -117,7 +116,7 @@ public class Facade {
 
     }
 
-    void addPerson() {
+    public void addPerson() {
 
     }
 
