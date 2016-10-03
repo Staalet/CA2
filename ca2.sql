@@ -71,6 +71,3 @@ CREATE TABLE phone (
     fk_infoentity_id INT,
     FOREIGN KEY (fk_infoentity_id) REFERENCES infoentity(infoentity_id)
 );
-
-
-
