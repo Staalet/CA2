@@ -1,4 +1,6 @@
-USE ca2;
+DROP DATABASE IF EXISTS ca2new;
+CREATE DATABASE ca2new;
+USE ca2new;
 
 CREATE TABLE cityinfo (
     zipcode INT PRIMARY KEY,
@@ -46,7 +48,13 @@ CREATE TABLE person (
 CREATE TABLE hobby (
     hobby_id INT PRIMARY KEY AUTO_INCREMENT,
     hobby_name VARCHAR(255),
-    hobby_desc VARCHAR(255),
-    fk_entity_id INT,
-    FOREIGN KEY(fk_entity_id) REFERENCES infoentity(entity_id)
+    hobby_desc VARCHAR(255)
+);
+
+CREATE TABLE hobbyperson (
+	hobbyperson_id INT PRIMARY KEY AUTO_INCREMENT,
+    fk_hobby_id INT,
+    fk_person_id INT,
+    FOREIGN KEY (fk_hobby_id) REFERENCES hobby(hobby_id),
+    FOREIGN KEY (fk_person_id) REFERENCES person(person_id)
 );
