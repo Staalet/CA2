@@ -18,7 +18,7 @@ import javax.persistence.EntityManagerFactory;
  * @author lucasmfredmark
  */
 public class Facade implements IFacade {
-    private EntityManagerFactory emf;
+    private final EntityManagerFactory emf;
 
     public Facade(EntityManagerFactory emf) {
         this.emf = emf;

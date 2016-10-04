@@ -19,35 +19,35 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Staal
  */
-@Path("generic")
-public class GenericResource {
+@Path("person")
+public class PersonResource {
 
     @Context
     private UriInfo context;
 
     /**
-     * Creates a new instance of GenericResource
+     * Creates a new instance of PersonResource
      */
-    public GenericResource() {
+    public PersonResource() {
     }
 
     /**
-     * Retrieves representation of an instance of com.mycompany.ca2.GenericResource
+     * Retrieves representation of an instance of com.mycompany.ca2.PersonResource
      * @return an instance of java.lang.String
      */
     @GET
-    @Produces(MediaType.APPLICATION_XML)
-    public String getXml() {
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getJson() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
     }
 
     /**
-     * PUT method for updating or creating an instance of GenericResource
+     * PUT method for updating or creating an instance of PersonResource
      * @param content representation for the resource
      */
     @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void putJson(String content) {
     }
 }
