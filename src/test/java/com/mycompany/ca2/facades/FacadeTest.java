@@ -60,11 +60,11 @@ public class FacadeTest {
     public void testGetPersonByPhoneNumber() {
         System.out.println("getPersonByPhoneNumber");
         
-        int phoneNumber = 123;
+        int phoneNumber = 88888888;
         
-        Person expResult = null;
+        Person expResult = new Person(1);
         Person result = facade.getPersonByPhoneNumber(phoneNumber);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getPersonId(), result.getPersonId());
         
       
     }

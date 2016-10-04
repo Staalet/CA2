@@ -6,21 +6,19 @@
 package com.mycompany.ca2.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,39 +29,40 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Hobby.findAll", query = "SELECT h FROM Hobby h"),
-    @NamedQuery(name = "Hobby.findByHobbyId", query = "SELECT h FROM Hobby h WHERE h.hobbyId = :hobbyId"),
-    @NamedQuery(name = "Hobby.findByHobbyName", query = "SELECT h FROM Hobby h WHERE h.hobbyName = :hobbyName")})
+    @NamedQuery(name = "Hobby.findByHobbyid", query = "SELECT h FROM Hobby h WHERE h.hobbyid = :hobbyid"),
+    @NamedQuery(name = "Hobby.findByHobbyName", query = "SELECT h FROM Hobby h WHERE h.hobbyName = :hobbyName"),
+    @NamedQuery(name = "Hobby.findByDescription", query = "SELECT h FROM Hobby h WHERE h.description = :description")})
 public class Hobby implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "hobby_id")
-    private Integer hobbyId;
-    @Size(max = 255)
-    @Column(name = "hobby_name")
+    @Column(name = "hobbyid")
+    private Integer hobbyid;
+    @Size(max = 40)
+    @Column(name = "hobbyName")
     private String hobbyName;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "hobby_desc")
-    private String hobbyDesc;
-    @OneToMany(mappedBy = "fkHobbyId")
-    private Collection<Hobbyperson> hobbypersonCollection;
+    @Size(max = 100)
+    @Column(name = "description")
+    private String description;
+    @JoinColumn(name = "fk_id", referencedColumnName = "id")
+    @ManyToOne
+    private Infoentity fkId;
 
     public Hobby() {
     }
 
-    public Hobby(Integer hobbyId) {
-        this.hobbyId = hobbyId;
+    public Hobby(Integer hobbyid) {
+        this.hobbyid = hobbyid;
     }
 
-    public Integer getHobbyId() {
-        return hobbyId;
+    public Integer getHobbyid() {
+        return hobbyid;
     }
 
-    public void setHobbyId(Integer hobbyId) {
-        this.hobbyId = hobbyId;
+    public void setHobbyid(Integer hobbyid) {
+        this.hobbyid = hobbyid;
     }
 
     public String getHobbyName() {
@@ -74,27 +73,26 @@ public class Hobby implements Serializable {
         this.hobbyName = hobbyName;
     }
 
-    public String getHobbyDesc() {
-        return hobbyDesc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHobbyDesc(String hobbyDesc) {
-        this.hobbyDesc = hobbyDesc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    @XmlTransient
-    public Collection<Hobbyperson> getHobbypersonCollection() {
-        return hobbypersonCollection;
+    public Infoentity getFkId() {
+        return fkId;
     }
 
-    public void setHobbypersonCollection(Collection<Hobbyperson> hobbypersonCollection) {
-        this.hobbypersonCollection = hobbypersonCollection;
+    public void setFkId(Infoentity fkId) {
+        this.fkId = fkId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (hobbyId != null ? hobbyId.hashCode() : 0);
+        hash += (hobbyid != null ? hobbyid.hashCode() : 0);
         return hash;
     }
 
@@ -105,7 +103,7 @@ public class Hobby implements Serializable {
             return false;
         }
         Hobby other = (Hobby) object;
-        if ((this.hobbyId == null && other.hobbyId != null) || (this.hobbyId != null && !this.hobbyId.equals(other.hobbyId))) {
+        if ((this.hobbyid == null && other.hobbyid != null) || (this.hobbyid != null && !this.hobbyid.equals(other.hobbyid))) {
             return false;
         }
         return true;
@@ -113,7 +111,7 @@ public class Hobby implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Hobby[ hobbyId=" + hobbyId + " ]";
+        return "com.mycompany.ca2.entities.Hobby[ hobbyid=" + hobbyid + " ]";
     }
     
 }

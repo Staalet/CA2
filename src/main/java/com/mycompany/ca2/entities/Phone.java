@@ -9,14 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,69 +28,59 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Phone.findAll", query = "SELECT p FROM Phone p"),
-    @NamedQuery(name = "Phone.findByPhoneId", query = "SELECT p FROM Phone p WHERE p.phoneId = :phoneId"),
-    @NamedQuery(name = "Phone.findByPhoneNumber", query = "SELECT p FROM Phone p WHERE p.phoneNumber = :phoneNumber"),
-    @NamedQuery(name = "Phone.findByPhoneDesc", query = "SELECT p FROM Phone p WHERE p.phoneDesc = :phoneDesc")})
+    @NamedQuery(name = "Phone.findByPnum", query = "SELECT p FROM Phone p WHERE p.pnum = :pnum"),
+    @NamedQuery(name = "Phone.findByDescription", query = "SELECT p FROM Phone p WHERE p.description = :description")})
 public class Phone implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "phone_id")
-    private Integer phoneId;
-    @Column(name = "phone_number")
-    private Integer phoneNumber;
-    @Size(max = 255)
-    @Column(name = "phone_desc")
-    private String phoneDesc;
-    @JoinColumn(name = "fk_infoentity_id", referencedColumnName = "infoentity_id")
+    @NotNull
+    @Size(min = 1, max = 8)
+    @Column(name = "pnum")
+    private String pnum;
+    @Size(max = 50)
+    @Column(name = "description")
+    private String description;
+    @JoinColumn(name = "fk_id", referencedColumnName = "id")
     @ManyToOne
-    private Infoentity fkInfoentityId;
+    private Infoentity fkId;
 
     public Phone() {
     }
 
-    public Phone(Integer phoneId) {
-        this.phoneId = phoneId;
+    public Phone(String pnum) {
+        this.pnum = pnum;
     }
 
-    public Integer getPhoneId() {
-        return phoneId;
+    public String getPnum() {
+        return pnum;
     }
 
-    public void setPhoneId(Integer phoneId) {
-        this.phoneId = phoneId;
+    public void setPnum(String pnum) {
+        this.pnum = pnum;
     }
 
-    public Integer getPhoneNumber() {
-        return phoneNumber;
+    public String getDescription() {
+        return description;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getPhoneDesc() {
-        return phoneDesc;
+    public Infoentity getFkId() {
+        return fkId;
     }
 
-    public void setPhoneDesc(String phoneDesc) {
-        this.phoneDesc = phoneDesc;
-    }
-
-    public Infoentity getFkInfoentityId() {
-        return fkInfoentityId;
-    }
-
-    public void setFkInfoentityId(Infoentity fkInfoentityId) {
-        this.fkInfoentityId = fkInfoentityId;
+    public void setFkId(Infoentity fkId) {
+        this.fkId = fkId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (phoneId != null ? phoneId.hashCode() : 0);
+        hash += (pnum != null ? pnum.hashCode() : 0);
         return hash;
     }
 
@@ -102,7 +91,7 @@ public class Phone implements Serializable {
             return false;
         }
         Phone other = (Phone) object;
-        if ((this.phoneId == null && other.phoneId != null) || (this.phoneId != null && !this.phoneId.equals(other.phoneId))) {
+        if ((this.pnum == null && other.pnum != null) || (this.pnum != null && !this.pnum.equals(other.pnum))) {
             return false;
         }
         return true;
@@ -110,7 +99,7 @@ public class Phone implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Phone[ phoneId=" + phoneId + " ]";
+        return "com.mycompany.ca2.entities.Phone[ pnum=" + pnum + " ]";
     }
     
 }

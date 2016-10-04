@@ -9,12 +9,13 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -29,61 +30,74 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "infoentity")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "typeof")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Infoentity.findAll", query = "SELECT i FROM Infoentity i"),
-    @NamedQuery(name = "Infoentity.findByInfoentityId", query = "SELECT i FROM Infoentity i WHERE i.infoentityId = :infoentityId"),
-    @NamedQuery(name = "Infoentity.findByInfoentityEmail", query = "SELECT i FROM Infoentity i WHERE i.infoentityEmail = :infoentityEmail")})
+    @NamedQuery(name = "Infoentity.findById", query = "SELECT i FROM Infoentity i WHERE i.id = :id"),
+    @NamedQuery(name = "Infoentity.findByEmail", query = "SELECT i FROM Infoentity i WHERE i.email = :email"),
+    @NamedQuery(name = "Infoentity.findByTypeof", query = "SELECT i FROM Infoentity i WHERE i.typeof = :typeof")})
 public class Infoentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "infoentity_id")
-    private Integer infoentityId;
-    @Size(max = 255)
-    @Column(name = "infoentity_email")
-    private String infoentityEmail;
-    @JoinColumn(name = "fk_address_id", referencedColumnName = "address_id")
-    @ManyToOne
-    private Address fkAddressId;
-    @OneToMany(mappedBy = "fkInfoentityId")
+    @Column(name = "id")
+    private Integer id;
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    @Size(max = 50)
+    @Column(name = "email")
+    private String email;
+    @Size(max = 20)
+    @Column(name = "typeof")
+    private String typeof;
+    @OneToMany(mappedBy = "fkId")
+    private Collection<Address> addressCollection;
+    @OneToMany(mappedBy = "fkId")
     private Collection<Phone> phoneCollection;
-    @OneToMany(mappedBy = "fkInfoentityId")
-    private Collection<Person> personCollection;
-    @OneToMany(mappedBy = "fkInfoentityId")
-    private Collection<Company> companyCollection;
+    @OneToMany(mappedBy = "fkId")
+    private Collection<Hobby> hobbyCollection;
 
     public Infoentity() {
     }
 
-    public Infoentity(Integer infoentityId) {
-        this.infoentityId = infoentityId;
+    public Infoentity(Integer id) {
+        this.id = id;
     }
 
-    public Integer getInfoentityId() {
-        return infoentityId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setInfoentityId(Integer infoentityId) {
-        this.infoentityId = infoentityId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getInfoentityEmail() {
-        return infoentityEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setInfoentityEmail(String infoentityEmail) {
-        this.infoentityEmail = infoentityEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public Address getFkAddressId() {
-        return fkAddressId;
+    public String getTypeof() {
+        return typeof;
     }
 
-    public void setFkAddressId(Address fkAddressId) {
-        this.fkAddressId = fkAddressId;
+    public void setTypeof(String typeof) {
+        this.typeof = typeof;
+    }
+
+    @XmlTransient
+    public Collection<Address> getAddressCollection() {
+        return addressCollection;
+    }
+
+    public void setAddressCollection(Collection<Address> addressCollection) {
+        this.addressCollection = addressCollection;
     }
 
     @XmlTransient
@@ -96,27 +110,18 @@ public class Infoentity implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Person> getPersonCollection() {
-        return personCollection;
+    public Collection<Hobby> getHobbyCollection() {
+        return hobbyCollection;
     }
 
-    public void setPersonCollection(Collection<Person> personCollection) {
-        this.personCollection = personCollection;
-    }
-
-    @XmlTransient
-    public Collection<Company> getCompanyCollection() {
-        return companyCollection;
-    }
-
-    public void setCompanyCollection(Collection<Company> companyCollection) {
-        this.companyCollection = companyCollection;
+    public void setHobbyCollection(Collection<Hobby> hobbyCollection) {
+        this.hobbyCollection = hobbyCollection;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (infoentityId != null ? infoentityId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -127,7 +132,7 @@ public class Infoentity implements Serializable {
             return false;
         }
         Infoentity other = (Infoentity) object;
-        if ((this.infoentityId == null && other.infoentityId != null) || (this.infoentityId != null && !this.infoentityId.equals(other.infoentityId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -135,7 +140,7 @@ public class Infoentity implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Infoentity[ infoentityId=" + infoentityId + " ]";
+        return "com.mycompany.ca2.entities.Infoentity[ id=" + id + " ]";
     }
     
 }

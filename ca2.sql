@@ -1,73 +1,52 @@
-DROP DATABASE IF EXISTS CA2;
-CREATE DATABASE CA2;
-USE CA2;
+USE ca2;
 
-DROP TABLE IF EXISTS cityinfo;
 CREATE TABLE cityinfo (
-	cityinfo_id INT PRIMARY KEY AUTO_INCREMENT,
-    cityinfo_zip INT,
-    cityinfo_city VARCHAR(255)
+    zipcode INT PRIMARY KEY,
+    city VARCHAR(50) UNIQUE
 );
 
-DROP TABLE IF EXISTS address;
-CREATE TABLE address (
-	address_id INT PRIMARY KEY AUTO_INCREMENT,
-    address_street VARCHAR(255),
-    address_info TEXT,
-    fk_cityinfo_id INT,
-    FOREIGN KEY (fk_cityinfo_id) REFERENCES cityinfo(cityinfo_id)
-);
-
-DROP TABLE IF EXISTS infoentity;
 CREATE TABLE infoentity (
-	infoentity_id INT PRIMARY KEY AUTO_INCREMENT,
-    infoentity_email VARCHAR(255),
-    fk_address_id INT,
-    FOREIGN KEY (fk_address_id) REFERENCES address(address_id)
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(50) UNIQUE,
+    typeof VARCHAR(20)
 );
 
-DROP TABLE IF EXISTS hobby;
-CREATE TABLE hobby (
-	hobby_id INT PRIMARY KEY AUTO_INCREMENT,
-    hobby_name VARCHAR(255),
-    hobby_desc TEXT
-);
-
-DROP TABLE IF EXISTS person;
-CREATE TABLE person (
-	person_id INT PRIMARY KEY AUTO_INCREMENT,
-    person_firstname VARCHAR(255),
-    person_lastname VARCHAR(255),
-    fk_infoentity_id INT,
-    FOREIGN KEY (fk_infoentity_id) REFERENCES infoentity(infoentity_id)
-);
-
-DROP TABLE IF EXISTS hobbyperson;
-CREATE TABLE hobbyperson (
-	hobbyperson_id INT PRIMARY KEY AUTO_INCREMENT,
-    fk_hobby_id INT,
-    fk_person_id INT,
-    FOREIGN KEY (fk_hobby_id) REFERENCES hobby(hobby_id),
-    FOREIGN KEY (fk_person_id) REFERENCES person(person_id)
-);
-
-DROP TABLE IF EXISTS company;
 CREATE TABLE company (
-	company_id INT PRIMARY KEY AUTO_INCREMENT,
-    company_name VARCHAR(255),
-    company_desc TEXT,
-    company_cvr VARCHAR(255),
-    company_numemployees INT,
-    company_marketvalue INT,
-    fk_infoentity_id INT,
-    FOREIGN KEY (fk_infoentity_id) REFERENCES infoentity(infoentity_id)
+    cid INT PRIMARY KEY REFERENCES infoentitiy(id),
+    cvr VARCHAR(8) UNIQUE,
+    cname VARCHAR(100),
+    description VARCHAR(200),
+    no_of_employees INT,
+    market_value INT
 );
 
-DROP TABLE IF EXISTS phone;
+CREATE TABLE person (
+    pid INT PRIMARY KEY REFERENCES infoentitiy(id),
+    firstName VARCHAR(40),
+    lastName VARCHAR(40)
+);
+
+CREATE TABLE hobby(
+    hobbyid INT PRIMARY KEY AUTO_INCREMENT,
+    hobbyName VARCHAR(40),
+    description VARCHAR(100),
+    fk_id INT,
+    FOREIGN KEY(fk_id) REFERENCES infoentity(id)
+);
+
 CREATE TABLE phone (
-	phone_id INT PRIMARY KEY AUTO_INCREMENT,
-    phone_number INT,
-    phone_desc VARCHAR(255),
-    fk_infoentity_id INT,
-    FOREIGN KEY (fk_infoentity_id) REFERENCES infoentity(infoentity_id)
+    pnum VARCHAR(8) PRIMARY KEY,
+    description VARCHAR(50),
+    fk_id INT,
+    FOREIGN KEY(fk_id) REFERENCES infoentity(id)
+);
+
+CREATE TABLE address (
+    addressid INT PRIMARY KEY AUTO_INCREMENT,
+    street VARCHAR(40),
+    additionalinfo VARCHAR(200),
+    fk_id INT,
+    fk_zipcode INT,
+    FOREIGN KEY (fk_zipcode) REFERENCES cityinfo(zipcode),
+    FOREIGN KEY (fk_id) REFERENCES infoentity(id)
 );

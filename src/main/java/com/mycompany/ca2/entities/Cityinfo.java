@@ -10,13 +10,12 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -30,54 +29,43 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cityinfo.findAll", query = "SELECT c FROM Cityinfo c"),
-    @NamedQuery(name = "Cityinfo.findByCityinfoId", query = "SELECT c FROM Cityinfo c WHERE c.cityinfoId = :cityinfoId"),
-    @NamedQuery(name = "Cityinfo.findByCityinfoZip", query = "SELECT c FROM Cityinfo c WHERE c.cityinfoZip = :cityinfoZip"),
-    @NamedQuery(name = "Cityinfo.findByCityinfoCity", query = "SELECT c FROM Cityinfo c WHERE c.cityinfoCity = :cityinfoCity")})
+    @NamedQuery(name = "Cityinfo.findByZipcode", query = "SELECT c FROM Cityinfo c WHERE c.zipcode = :zipcode"),
+    @NamedQuery(name = "Cityinfo.findByCity", query = "SELECT c FROM Cityinfo c WHERE c.city = :city")})
 public class Cityinfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "cityinfo_id")
-    private Integer cityinfoId;
-    @Column(name = "cityinfo_zip")
-    private Integer cityinfoZip;
-    @Size(max = 255)
-    @Column(name = "cityinfo_city")
-    private String cityinfoCity;
-    @OneToMany(mappedBy = "fkCityinfoId")
+    @NotNull
+    @Column(name = "zipcode")
+    private Integer zipcode;
+    @Size(max = 50)
+    @Column(name = "city")
+    private String city;
+    @OneToMany(mappedBy = "fkZipcode")
     private Collection<Address> addressCollection;
 
     public Cityinfo() {
     }
 
-    public Cityinfo(Integer cityinfoId) {
-        this.cityinfoId = cityinfoId;
+    public Cityinfo(Integer zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public Integer getCityinfoId() {
-        return cityinfoId;
+    public Integer getZipcode() {
+        return zipcode;
     }
 
-    public void setCityinfoId(Integer cityinfoId) {
-        this.cityinfoId = cityinfoId;
+    public void setZipcode(Integer zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public Integer getCityinfoZip() {
-        return cityinfoZip;
+    public String getCity() {
+        return city;
     }
 
-    public void setCityinfoZip(Integer cityinfoZip) {
-        this.cityinfoZip = cityinfoZip;
-    }
-
-    public String getCityinfoCity() {
-        return cityinfoCity;
-    }
-
-    public void setCityinfoCity(String cityinfoCity) {
-        this.cityinfoCity = cityinfoCity;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @XmlTransient
@@ -92,7 +80,7 @@ public class Cityinfo implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (cityinfoId != null ? cityinfoId.hashCode() : 0);
+        hash += (zipcode != null ? zipcode.hashCode() : 0);
         return hash;
     }
 
@@ -103,7 +91,7 @@ public class Cityinfo implements Serializable {
             return false;
         }
         Cityinfo other = (Cityinfo) object;
-        if ((this.cityinfoId == null && other.cityinfoId != null) || (this.cityinfoId != null && !this.cityinfoId.equals(other.cityinfoId))) {
+        if ((this.zipcode == null && other.zipcode != null) || (this.zipcode != null && !this.zipcode.equals(other.zipcode))) {
             return false;
         }
         return true;
@@ -111,7 +99,7 @@ public class Cityinfo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Cityinfo[ cityinfoId=" + cityinfoId + " ]";
+        return "com.mycompany.ca2.entities.Cityinfo[ zipcode=" + zipcode + " ]";
     }
     
 }

@@ -6,7 +6,6 @@
 package com.mycompany.ca2.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,15 +13,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,81 +29,81 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
-    @NamedQuery(name = "Address.findByAddressId", query = "SELECT a FROM Address a WHERE a.addressId = :addressId"),
-    @NamedQuery(name = "Address.findByAddressStreet", query = "SELECT a FROM Address a WHERE a.addressStreet = :addressStreet")})
+    @NamedQuery(name = "Address.findByAddressid", query = "SELECT a FROM Address a WHERE a.addressid = :addressid"),
+    @NamedQuery(name = "Address.findByStreet", query = "SELECT a FROM Address a WHERE a.street = :street"),
+    @NamedQuery(name = "Address.findByAdditionalinfo", query = "SELECT a FROM Address a WHERE a.additionalinfo = :additionalinfo")})
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "address_id")
-    private Integer addressId;
-    @Size(max = 255)
-    @Column(name = "address_street")
-    private String addressStreet;
-    @Lob
-    @Size(max = 65535)
-    @Column(name = "address_info")
-    private String addressInfo;
-    @OneToMany(mappedBy = "fkAddressId")
-    private Collection<Infoentity> infoentityCollection;
-    @JoinColumn(name = "fk_cityinfo_id", referencedColumnName = "cityinfo_id")
+    @Column(name = "addressid")
+    private Integer addressid;
+    @Size(max = 40)
+    @Column(name = "street")
+    private String street;
+    @Size(max = 200)
+    @Column(name = "additionalinfo")
+    private String additionalinfo;
+    @JoinColumn(name = "fk_zipcode", referencedColumnName = "zipcode")
     @ManyToOne
-    private Cityinfo fkCityinfoId;
+    private Cityinfo fkZipcode;
+    @JoinColumn(name = "fk_id", referencedColumnName = "id")
+    @ManyToOne
+    private Infoentity fkId;
 
     public Address() {
     }
 
-    public Address(Integer addressId) {
-        this.addressId = addressId;
+    public Address(Integer addressid) {
+        this.addressid = addressid;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public Integer getAddressid() {
+        return addressid;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddressid(Integer addressid) {
+        this.addressid = addressid;
     }
 
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getAddressInfo() {
-        return addressInfo;
+    public String getAdditionalinfo() {
+        return additionalinfo;
     }
 
-    public void setAddressInfo(String addressInfo) {
-        this.addressInfo = addressInfo;
+    public void setAdditionalinfo(String additionalinfo) {
+        this.additionalinfo = additionalinfo;
     }
 
-    @XmlTransient
-    public Collection<Infoentity> getInfoentityCollection() {
-        return infoentityCollection;
+    public Cityinfo getFkZipcode() {
+        return fkZipcode;
     }
 
-    public void setInfoentityCollection(Collection<Infoentity> infoentityCollection) {
-        this.infoentityCollection = infoentityCollection;
+    public void setFkZipcode(Cityinfo fkZipcode) {
+        this.fkZipcode = fkZipcode;
     }
 
-    public Cityinfo getFkCityinfoId() {
-        return fkCityinfoId;
+    public Infoentity getFkId() {
+        return fkId;
     }
 
-    public void setFkCityinfoId(Cityinfo fkCityinfoId) {
-        this.fkCityinfoId = fkCityinfoId;
+    public void setFkId(Infoentity fkId) {
+        this.fkId = fkId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (addressId != null ? addressId.hashCode() : 0);
+        hash += (addressid != null ? addressid.hashCode() : 0);
         return hash;
     }
 
@@ -118,7 +114,7 @@ public class Address implements Serializable {
             return false;
         }
         Address other = (Address) object;
-        if ((this.addressId == null && other.addressId != null) || (this.addressId != null && !this.addressId.equals(other.addressId))) {
+        if ((this.addressid == null && other.addressid != null) || (this.addressid != null && !this.addressid.equals(other.addressid))) {
             return false;
         }
         return true;
@@ -126,7 +122,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Address[ addressId=" + addressId + " ]";
+        return "com.mycompany.ca2.entities.Address[ addressid=" + addressid + " ]";
     }
     
 }
