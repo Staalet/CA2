@@ -15,67 +15,21 @@ import java.util.List;
  * @author lucasmfredmark
  */
 public interface IFacade {
-
-    public void addAdress();
-
-    public void addCityInfo();
-
-    public void addCompany();
-
-    public void addHobby();
-
-    public void addHobbyPerson();
-
-    public void addInfoentity();
-
-    public void addPerson();
-
-    public void addPhone();
-
-    public void deleteAdress();
-
-    public void deleteCityInfo();
-
-    public void deleteCompany();
-
-    public void deleteHobby();
-
-    public void deleteHobbyPerson();
-
-    public void deleteInfoentity();
-
-    public void deletePerson();
-
-    public void deletePhone();
-
-    public void editAdress();
-
-    public void editCityInfo();
-
-    public void editCompany();
-
-    public void editHobby();
-
-    public void editHobbyPerson();
-
-    public void editInfoentity();
-
-    public void editPerson();
-
-    public void editPhone();
-
-    public List<Person> getAllPersonsByZipCode(int zip);
-
-    public List<Cityinfo> getAllZipCodesInCountry(String country);
-
-    public List<Company> getCompaniesWithEmployeeCountOverX(int x);
-
-    public Company getCompanyByCVR(int cvr);
-
-    public Company getCompanyByPhoneNumber(int phoneNumber);
-
-    public Person getPersonByPhoneNumber(int phoneNumber);
-
-    public List<Person> getPersonsWithHobby(String hobby);
+    
+    /* person methods */
+    public List<Person> getAllPersons();
+    public Person getPersonById(int personId);
+    public List<Person> getPersonsByHobby(String hobby);
+    public Person addPerson(Person person);
+    public Person editPerson(Person person);
+    public Person deletePerson(Person person);
+    
+    /* company methods */
+    public List<Company> getAllCompanies();
+    public Company getCompanyById(int companyId);
+    public Company getCompanyByCvr(int cvr);
+    public Company addCompany(Company company);
+    public Company editCompany(Company company);
+    public Company deleteCompany(Company company);
     
 }

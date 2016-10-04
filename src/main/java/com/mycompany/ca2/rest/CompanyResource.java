@@ -5,6 +5,10 @@
  */
 package com.mycompany.ca2.rest;
 
+import com.mycompany.ca2.facades.Facade;
+import com.mycompany.ca2.facades.interfaces.IFacade;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -24,11 +28,15 @@ public class CompanyResource {
 
     @Context
     private UriInfo context;
+    
+    private final IFacade facade;
 
     /**
      * Creates a new instance of CompanyResource
      */
     public CompanyResource() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
+        facade = new Facade(emf);
     }
 
     /**
