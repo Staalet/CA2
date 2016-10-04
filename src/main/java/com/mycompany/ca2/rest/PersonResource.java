@@ -20,6 +20,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -33,15 +34,13 @@ public class PersonResource {
     @Context
     private UriInfo context;
     
-    private final IFacade facade;
+    private final static IFacade FACADE = new Facade(Persistence.createEntityManagerFactory("PU"));
     private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Creates a new instance of PersonResource
      */
     public PersonResource() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-        facade = new Facade(emf);
     }
 
     /**
@@ -59,9 +58,18 @@ public class PersonResource {
     @Path("complete")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersons() {
-        List<Person> people = facade.getAllPersons();
+        List<Person> people = FACADE.getAllPersons();
         
         return GSON.toJson(people);
+    }
+    
+    @GET
+    @Path("complete/{id: \\d+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonById(@PathParam("id") int id) {
+        Person person = FACADE.getPersonById(id);
+        
+        return GSON.toJson(person);
     }
 
     /**

@@ -24,33 +24,33 @@ import static org.junit.Assert.*;
  * @author Staal
  */
 public class FacadeTest {
-    private static EntityManagerFactory emf;
-    private static IFacade facade;
-    private EntityManager em;
-    
-    public FacadeTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-        emf = Persistence.createEntityManagerFactory("PU_test");
-        facade = new Facade(emf);
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-        em = emf.createEntityManager();
-    }
-    
-    @After
-    public void tearDown() {
-        em.clear();
-        em.close();
-    }
+//    private static EntityManagerFactory emf;
+//    private static IFacade facade;
+//    private EntityManager em;
+//    
+//    public FacadeTest() {
+//    }
+//    
+//    @BeforeClass
+//    public static void setUpClass() {
+//        emf = Persistence.createEntityManagerFactory("PU_test");
+//        facade = new Facade(emf);
+//    }
+//    
+//    @AfterClass
+//    public static void tearDownClass() {
+//    }
+//    
+//    @Before
+//    public void setUp() {
+//        em = emf.createEntityManager();
+//    }
+//    
+//    @After
+//    public void tearDown() {
+//        em.clear();
+//        em.close();
+//    }
 //    
 //    /**
 //     * Test of getAllPersons method, of class Facade.
@@ -229,5 +229,4 @@ public class FacadeTest {
 //        // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
 //    }
-    
 }

@@ -5,7 +5,6 @@
  */
 package com.mycompany.ca2.facades.interfaces;
 
-import com.mycompany.ca2.entities.Cityinfo;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.Person;
 import java.util.List;

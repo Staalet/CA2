@@ -44,7 +44,7 @@ public class Facade implements IFacade {
         
         try {
             TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
-            Person p = result.setParameter("person_id", personId).getSingleResult();
+            Person p = result.setParameter("personId", personId).getSingleResult();
             
             return p;
         } finally {
