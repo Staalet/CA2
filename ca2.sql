@@ -2,51 +2,51 @@ USE ca2;
 
 CREATE TABLE cityinfo (
     zipcode INT PRIMARY KEY,
-    city VARCHAR(50) UNIQUE
-);
-
-CREATE TABLE infoentity (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(50) UNIQUE,
-    typeof VARCHAR(20)
-);
-
-CREATE TABLE company (
-    cid INT PRIMARY KEY REFERENCES infoentitiy(id),
-    cvr VARCHAR(8) UNIQUE,
-    cname VARCHAR(100),
-    description VARCHAR(200),
-    no_of_employees INT,
-    market_value INT
-);
-
-CREATE TABLE person (
-    pid INT PRIMARY KEY REFERENCES infoentitiy(id),
-    firstName VARCHAR(40),
-    lastName VARCHAR(40)
-);
-
-CREATE TABLE hobby(
-    hobbyid INT PRIMARY KEY AUTO_INCREMENT,
-    hobbyName VARCHAR(40),
-    description VARCHAR(100),
-    fk_id INT,
-    FOREIGN KEY(fk_id) REFERENCES infoentity(id)
-);
-
-CREATE TABLE phone (
-    pnum VARCHAR(8) PRIMARY KEY,
-    description VARCHAR(50),
-    fk_id INT,
-    FOREIGN KEY(fk_id) REFERENCES infoentity(id)
+    city VARCHAR(255)
 );
 
 CREATE TABLE address (
-    addressid INT PRIMARY KEY AUTO_INCREMENT,
-    street VARCHAR(40),
-    additionalinfo VARCHAR(200),
-    fk_id INT,
+    address_id INT PRIMARY KEY AUTO_INCREMENT,
+    address_street VARCHAR(255),
+    address_info VARCHAR(255),
     fk_zipcode INT,
-    FOREIGN KEY (fk_zipcode) REFERENCES cityinfo(zipcode),
-    FOREIGN KEY (fk_id) REFERENCES infoentity(id)
+    FOREIGN KEY (fk_zipcode) REFERENCES cityinfo(zipcode)
+);
+
+CREATE TABLE infoentity (
+    entity_id INT PRIMARY KEY AUTO_INCREMENT,
+    entity_email VARCHAR(255) UNIQUE,
+    entity_typeof VARCHAR(20),
+    fk_address_id INT,
+    FOREIGN KEY (fk_address_id) REFERENCES address(address_id)
+);
+
+CREATE TABLE phone (
+    phone_number INT(8) PRIMARY KEY,
+    phone_desc VARCHAR(255),
+    fk_entity_id INT,
+    FOREIGN KEY(fk_entity_id) REFERENCES infoentity(entity_id)
+);
+
+CREATE TABLE company (
+    company_id INT PRIMARY KEY REFERENCES infoentitiy(entity_id),
+    company_name VARCHAR(255),
+    company_cvr INT(8) UNIQUE,
+    company_desc VARCHAR(255),
+    company_empl INT,
+    company_value INT
+);
+
+CREATE TABLE person (
+    person_id INT PRIMARY KEY REFERENCES infoentitiy(entity_id),
+    person_firstname VARCHAR(255),
+    person_lastname VARCHAR(255)
+);
+
+CREATE TABLE hobby (
+    hobby_id INT PRIMARY KEY AUTO_INCREMENT,
+    hobby_name VARCHAR(255),
+    hobby_desc VARCHAR(255),
+    fk_entity_id INT,
+    FOREIGN KEY(fk_entity_id) REFERENCES infoentity(entity_id)
 );
