@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS ca2new;
-CREATE DATABASE ca2new;
-USE ca2new;
+USE ca2;
 
 CREATE TABLE cityinfo (
     zipcode INT PRIMARY KEY,
