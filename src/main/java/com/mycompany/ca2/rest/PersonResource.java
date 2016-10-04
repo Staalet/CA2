@@ -5,8 +5,12 @@
  */
 package com.mycompany.ca2.rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.mycompany.ca2.entities.Person;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
@@ -30,6 +34,7 @@ public class PersonResource {
     private UriInfo context;
     
     private final IFacade facade;
+    private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Creates a new instance of PersonResource
@@ -48,6 +53,15 @@ public class PersonResource {
     public String getJson() {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
+    }
+    
+    @GET
+    @Path("complete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllPersons() {
+        List<Person> people = facade.getAllPersons();
+        
+        return GSON.toJson(people);
     }
 
     /**
