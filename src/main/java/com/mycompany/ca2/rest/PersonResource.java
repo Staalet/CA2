@@ -33,13 +33,14 @@ public class PersonResource {
     @Context
     private UriInfo context;
     
-    private final static IFacade FACADE = new Facade(Persistence.createEntityManagerFactory("PU"));
-    private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final IFacade FACADE = new Facade();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Creates a new instance of PersonResource
      */
     public PersonResource() {
+        FACADE.addEntityManagerFactory(Persistence.createEntityManagerFactory("PU"));
     }
 
     /**

@@ -18,9 +18,10 @@ import javax.persistence.TypedQuery;
  * @author lucasmfredmark
  */
 public class Facade implements IFacade {
-    private final EntityManagerFactory emf;
-
-    public Facade(EntityManagerFactory emf) {
+    private EntityManagerFactory emf;
+    
+    @Override
+    public void addEntityManagerFactory(EntityManagerFactory emf) {
         this.emf = emf;
     }
 
@@ -130,7 +131,7 @@ public class Facade implements IFacade {
         
         try {
             TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyId", Company.class);
-            Company c = result.setParameter("company_id", companyId).getSingleResult();
+            Company c = result.setParameter("companyId", companyId).getSingleResult();
             
             return c;
         } finally {
@@ -144,7 +145,7 @@ public class Facade implements IFacade {
         
         try {
             TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyCvr", Company.class);
-            Company c = result.setParameter("company_cvr", cvr).getSingleResult();
+            Company c = result.setParameter("companyCvr", cvr).getSingleResult();
             
             return c;
         } finally {
