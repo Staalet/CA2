@@ -6,107 +6,67 @@
 package com.mycompany.ca2.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author lucasmfredmark
  */
 @Entity
-@Table(name = "address")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a"),
-    @NamedQuery(name = "Address.findByAddressId", query = "SELECT a FROM Address a WHERE a.addressId = :addressId"),
-    @NamedQuery(name = "Address.findByAddressStreet", query = "SELECT a FROM Address a WHERE a.addressStreet = :addressStreet"),
-    @NamedQuery(name = "Address.findByAddressInfo", query = "SELECT a FROM Address a WHERE a.addressInfo = :addressInfo")})
 public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "address_id")
-    private Integer addressId;
-    @Size(max = 255)
-    @Column(name = "address_street")
-    private String addressStreet;
-    @Size(max = 255)
-    @Column(name = "address_info")
-    private String addressInfo;
-    @OneToMany(mappedBy = "fkAddressId")
-    private Collection<Infoentity> infoentityCollection;
-    @JoinColumn(name = "fk_zipcode", referencedColumnName = "zipcode")
-    @ManyToOne
-    private Cityinfo fkZipcode;
+    private Integer id;
+    private String street;
+    private String additionalInfo;
+    
+    @ManyToOne(cascade={CascadeType.PERSIST})
+    private CityInfo cityInfo;
+    
 
-    public Address() {
+    public Integer getId() {
+        return id;
     }
 
-    public Address(Integer addressId) {
-        this.addressId = addressId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public String getStreet() {
+        return street;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setStreet(String street) {
+        this.street = street;
     }
 
-    public String getAddressStreet() {
-        return addressStreet;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setAddressStreet(String addressStreet) {
-        this.addressStreet = addressStreet;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
 
-    public String getAddressInfo() {
-        return addressInfo;
+    public CityInfo getCityInfo() {
+        return cityInfo;
     }
 
-    public void setAddressInfo(String addressInfo) {
-        this.addressInfo = addressInfo;
-    }
-
-    @XmlTransient
-    public Collection<Infoentity> getInfoentityCollection() {
-        return infoentityCollection;
-    }
-
-    public void setInfoentityCollection(Collection<Infoentity> infoentityCollection) {
-        this.infoentityCollection = infoentityCollection;
-    }
-
-    public Cityinfo getFkZipcode() {
-        return fkZipcode;
-    }
-
-    public void setFkZipcode(Cityinfo fkZipcode) {
-        this.fkZipcode = fkZipcode;
+    public void setCityInfo(CityInfo cityInfo) {
+        this.cityInfo = cityInfo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (addressId != null ? addressId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -117,7 +77,7 @@ public class Address implements Serializable {
             return false;
         }
         Address other = (Address) object;
-        if ((this.addressId == null && other.addressId != null) || (this.addressId != null && !this.addressId.equals(other.addressId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -125,7 +85,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Address[ addressId=" + addressId + " ]";
+        return "com.mycompany.ca2.entities.Address[ id=" + id + " ]";
     }
     
 }

@@ -31,7 +31,7 @@ public class CompanyResource {
     @Context
     private UriInfo context;
     
-    //private final static IFacade FACADE = new Facade(Persistence.createEntityManagerFactory("PU"));
+    private final static IFacade FACADE = new Facade(Persistence.createEntityManagerFactory("PU"));
     private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**

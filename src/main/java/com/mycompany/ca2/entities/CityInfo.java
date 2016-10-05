@@ -7,29 +7,27 @@ package com.mycompany.ca2.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author lucasmfredmark
  */
 @Entity
-public class Hobby implements Serializable {
+public class CityInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String description;
-    
-    @ManyToMany(mappedBy = "hobbies", cascade={CascadeType.PERSIST})
-    private List<Person> persons;
+    private int zipCode;
+    private String city;
+    @OneToMany(mappedBy = "cityInfo")
+    private List<Address> addresses;
 
     public Integer getId() {
         return id;
@@ -39,20 +37,36 @@ public class Hobby implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getZipCode() {
+        return zipCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCity() {
+        return city;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+    
+    public void addAddress(Address address) {
+        addresses.add(address);
+    }
+    
+    public void removeAddress(Address address) {
+        addresses.remove(address);
     }
 
     @Override
@@ -65,10 +79,10 @@ public class Hobby implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Hobby)) {
+        if (!(object instanceof CityInfo)) {
             return false;
         }
-        Hobby other = (Hobby) object;
+        CityInfo other = (CityInfo) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -77,7 +91,7 @@ public class Hobby implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.ca2.entities.Hobby[ id=" + id + " ]";
+        return "com.mycompany.ca2.entities.CityInfo[ id=" + id + " ]";
     }
     
 }

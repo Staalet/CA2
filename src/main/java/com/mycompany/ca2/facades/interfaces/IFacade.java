@@ -8,15 +8,12 @@ package com.mycompany.ca2.facades.interfaces;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.Person;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 
 /**
  *
  * @author lucasmfredmark
  */
 public interface IFacade {
-    
-    public void addEntityManagerFactory(EntityManagerFactory emf);
     
     /* person methods */
     public List<Person> getAllPersons();
