@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Company.findByCompanyCvr", query = "SELECT c FROM Company c WHERE c.companyCvr = :companyCvr"),
     @NamedQuery(name = "Company.findByCompanyDesc", query = "SELECT c FROM Company c WHERE c.companyDesc = :companyDesc"),
     @NamedQuery(name = "Company.findByCompanyEmpl", query = "SELECT c FROM Company c WHERE c.companyEmpl = :companyEmpl"),
-    @NamedQuery(name = "Company.findByCompanyValue", query = "SELECT c FROM Company c WHERE c.companyValue = :companyValue")})
+    @NamedQuery(name = "Company.findByCompanyValue", query = "SELECT c FROM Company c WHERE c.companyValue = :companyValue"),  
+})
+   
 public class Company extends Infoentity implements Serializable {
 
     private static final long serialVersionUID = 1L;
