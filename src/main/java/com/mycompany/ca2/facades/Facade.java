@@ -59,17 +59,55 @@ public class Facade implements IFacade {
 
     @Override
     public Person addPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person editPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
+            Person p = result.setParameter("personId", person.getPersonId()).getSingleResult();
+            
+            em.getTransaction().begin();
+            p.setPersonId(person.getPersonId());
+            p.setPersonFirstname(person.getPersonFirstname());
+            p.setPersonLastname(person.getPersonLastname());
+            em.getTransaction().commit();
+            
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person deletePerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
+            Person p = result.setParameter("personId", person.getPersonId()).getSingleResult();
+            
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+            
+            return p;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
