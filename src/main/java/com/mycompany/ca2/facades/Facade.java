@@ -60,32 +60,97 @@ public class Facade implements IFacade {
 
     @Override
     public Person addPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+            
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person editPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
+            Person p = result.setParameter("personId", person.getPersonId()).getSingleResult();
+            
+            em.getTransaction().begin();
+            p.setPersonId(person.getPersonId());
+            p.setPersonFirstname(person.getPersonFirstname());
+            p.setPersonLastname(person.getPersonLastname());
+            em.getTransaction().commit();
+            
+            return person;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person deletePerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
+            Person p = result.setParameter("personId", person.getPersonId()).getSingleResult();
+            
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+            
+            return p;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Company> getAllCompanies() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findAll", Company.class);
+            List<Company> companies = result.getResultList();
+            
+            return companies;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Company getCompanyById(int companyId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyId", Company.class);
+            Company c = result.setParameter("company_id", companyId).getSingleResult();
+            
+            return c;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Company getCompanyByCvr(int cvr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyCvr", Company.class);
+            Company c = result.setParameter("company_cvr", cvr).getSingleResult();
+            
+            return c;
+        } finally {
+            em.close();
+        }
     }
 
     @Override

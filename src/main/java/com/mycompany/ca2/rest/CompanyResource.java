@@ -5,6 +5,8 @@
  */
 package com.mycompany.ca2.rest;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import javax.persistence.EntityManagerFactory;
@@ -29,14 +31,13 @@ public class CompanyResource {
     @Context
     private UriInfo context;
     
-    private final IFacade facade;
+    private final static IFacade FACADE = new Facade(Persistence.createEntityManagerFactory("PU"));
+    private final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**
      * Creates a new instance of CompanyResource
      */
     public CompanyResource() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("PU");
-        facade = new Facade(emf);
     }
 
     /**
