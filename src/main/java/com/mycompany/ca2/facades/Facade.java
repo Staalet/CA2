@@ -74,17 +74,44 @@ public class Facade implements IFacade {
 
     @Override
     public List<Company> getAllCompanies() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findAll", Company.class);
+            List<Company> companies = result.getResultList();
+            
+            return companies;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Company getCompanyById(int companyId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyId", Company.class);
+            Company c = result.setParameter("company_id", companyId).getSingleResult();
+            
+            return c;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Company getCompanyByCvr(int cvr) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyCvr", Company.class);
+            Company c = result.setParameter("company_cvr", cvr).getSingleResult();
+            
+            return c;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
