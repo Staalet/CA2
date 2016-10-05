@@ -28,11 +28,11 @@ public class Facade implements IFacade {
     @Override
     public List<Person> getAllPersons() {
         EntityManager em = emf.createEntityManager();
-        
+
         try {
             TypedQuery<Person> result = em.createNamedQuery("Person.findAll", Person.class);
             List<Person> persons = result.getResultList();
-            
+
             return persons;
         } finally {
             em.close();
@@ -42,11 +42,11 @@ public class Facade implements IFacade {
     @Override
     public Person getPersonById(int personId) {
         EntityManager em = emf.createEntityManager();
-        
+
         try {
             TypedQuery<Person> result = em.createNamedQuery("Person.findByPersonId", Person.class);
             Person p = result.setParameter("personId", personId).getSingleResult();
-            
+
             return p;
         } finally {
             em.close();
@@ -155,17 +155,56 @@ public class Facade implements IFacade {
 
     @Override
     public Company addCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            Company c = new Company();
+            em.getTransaction().begin();
+            em.persist(c);
+            em.getTransaction().commit();
+            return c;
+        } finally {
+            em.close();
+            
+        }
     }
 
     @Override
     public Company editCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyId", Company.class);
+            Company c = result.setParameter("companyId", company.getCompanyId()).getSingleResult();
+            
+            //Have not set company Id so you cant ruin unique id
+            em.getTransaction().begin();
+            c.setCompanyCvr(company.getCompanyCvr());
+            c.setCompanyDesc(company.getCompanyDesc());
+            c.setCompanyEmpl(company.getCompanyEmpl());
+            c.setCompanyName(company.getCompanyName());
+            c.setCompanyValue(company.getCompanyValue());
+            em.getTransaction().commit();
+            
+            return company;
+            
+        }finally {
+            em.close();
+        }
     }
-
     @Override
     public Company deleteCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        try {
+
+            TypedQuery<Company> result = em.createNamedQuery("Company.findByCompanyId", Company.class);
+            Company c = result.setParameter("companyId", company.getCompanyId()).getSingleResult();
+
+            em.remove(c);
+
+            return company;
+        } finally {
+            em.close();
+        }
     }
 
 }
