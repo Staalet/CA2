@@ -92,7 +92,13 @@ public class Facade implements IFacade {
 
     @Override
     public Company getCompanyById(int companyId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            return em.find(Company.class, companyId);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
