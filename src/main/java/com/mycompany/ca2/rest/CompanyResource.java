@@ -99,15 +99,15 @@ public class CompanyResource {
         Company c = (Company) FACADE.addInfoEntity(company);
         return GSON.toJson(c);
     }
-    
+
     @DELETE
     @Path("delete")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteCompany(@PathParam("id") int id){
+    public String deleteCompany(@PathParam("id") int id) {
         Company company = (Company) FACADE.deleteInfoEntity(id);
-        
+
         return GSON.toJson(company);
-        
+
     }
 
     /**
