@@ -7,6 +7,7 @@ package com.mycompany.ca2.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.mycompany.ca2.entities.Person;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
@@ -68,7 +69,7 @@ public class PersonResource {
     public String getPersonById(@PathParam("id") int id) {
         Person person = FACADE.getPersonById(id);
         
-        return GSON.toJson(person);
+        return GSON.toJson(person, Person.class);
     }
 
     /**

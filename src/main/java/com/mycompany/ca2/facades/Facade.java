@@ -105,11 +105,11 @@ public class Facade implements IFacade {
     @Override
     public Company getCompanyByCvr(int cvr) {
         EntityManager em = emf.createEntityManager();
-        
+
         try {
             TypedQuery<Company> company = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :companyCvr", Company.class);
             company.setParameter("companyCvr", cvr);
-            
+
             return company.getSingleResult();
         } finally {
             em.close();
