@@ -6,8 +6,8 @@
 package com.mycompany.ca2.facades;
 
 import com.mycompany.ca2.entities.Company;
+import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
-import static com.mycompany.ca2.entities.development.Company_.cvr;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -27,12 +27,60 @@ public class Facade implements IFacade {
     }
 
     @Override
+    public InfoEntity addInfoEntity(InfoEntity infoEntity) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(infoEntity);
+            em.getTransaction().commit();
+            
+            return infoEntity;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public InfoEntity editInfoEntity(InfoEntity infoEntity) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            em.find(infoEntity.getClass(), infoEntity.getId());
+            em.merge(infoEntity);
+            em.getTransaction().commit();
+            
+            return infoEntity;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public InfoEntity deleteInfoEntity(InfoEntity infoEntity) {
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            
+            InfoEntity entity = em.find(InfoEntity.class, infoEntity.getId());
+            em.remove(entity);
+            em.getTransaction().commit();
+            
+            return infoEntity;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
     public List<Person> getAllPersons() {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
-
+            
             return persons.getResultList();
         } finally {
             em.close();
@@ -42,7 +90,7 @@ public class Facade implements IFacade {
     @Override
     public Person getPersonById(int personId) {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             return em.find(Person.class, personId);
         } finally {
@@ -53,64 +101,12 @@ public class Facade implements IFacade {
     @Override
     public List<Person> getPersonsByHobby(String hobby) {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             TypedQuery<Person> personsHobby = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobbyName", Person.class);
             personsHobby.setParameter("hobbyName", hobby);
-
+            
             return personsHobby.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public Person addPerson(Person person) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            Person p = new Person();
-            p.setFirstName(person.getFirstName());
-            p.setLastName(person.getLastName());
-            p.setHobbies(person.getHobbies());
-            em.persist(p);
-            em.getTransaction().commit();
-            return p;
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public Person editPerson(Person person) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            Person p = em.find(Person.class, person);
-
-            p.setFirstName(person.getFirstName());
-            p.setLastName(person.getLastName());
-            p.setHobbies(person.getHobbies());
-            em.persist(p);
-            em.getTransaction().commit();
-            return p;
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public Person deletePerson(Person person) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            Person p = em.find(Person.class, person.getId());
-            em.remove(p);
-            em.getTransaction().commit();
-            return p;
         } finally {
             em.close();
         }
@@ -119,10 +115,10 @@ public class Facade implements IFacade {
     @Override
     public List<Company> getAllCompanies() {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             TypedQuery<Company> companies = em.createQuery("SELECT c FROM Company c", Company.class);
-
+            
             return companies.getResultList();
         } finally {
             em.close();
@@ -132,7 +128,7 @@ public class Facade implements IFacade {
     @Override
     public Company getCompanyById(int companyId) {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             return em.find(Company.class, companyId);
         } finally {
@@ -143,69 +139,15 @@ public class Facade implements IFacade {
     @Override
     public Company getCompanyByCvr(int cvr) {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             TypedQuery<Company> company = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :companyCvr", Company.class);
             company.setParameter("companyCvr", cvr);
-
+            
             return company.getSingleResult();
         } finally {
             em.close();
         }
     }
 
-    @Override
-    public Company addCompany(Company company) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            Company c = new Company();
-            c.setCvr(company.getCvr());
-            c.setDescription(company.getDescription());
-            c.setMarketValue(company.getMarketValue());
-            c.setName(company.getName());
-            c.setNumEmployees(company.getNumEmployees());
-            em.persist(company);
-            em.getTransaction().commit();
-            return c;
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public Company editCompany(Company company) {
-        EntityManager em = emf.createEntityManager();
-
-        try {
-            em.getTransaction().begin();
-            Company c = em.find(Company.class, company);
-            c.setCvr(company.getCvr());
-            c.setDescription(company.getDescription());
-            c.setMarketValue(company.getMarketValue());
-            c.setName(company.getName());
-            c.setNumEmployees(company.getNumEmployees());
-            em.persist(c);
-            em.getTransaction().commit();
-            return c;
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public Company deleteCompany(Company company) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-           Company c = em.find(Company.class, company.getId());
-            em.remove(c);
-            em.getTransaction().commit();
-            return c;
-        } finally {
-            em.close();
-        }
-
-    }
 }

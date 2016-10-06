@@ -69,7 +69,7 @@ public class PersonResource {
     public String getPersonById(@PathParam("id") int id) {
         Person person = FACADE.getPersonById(id);
         
-        return GSON.toJson(person, Person.class);
+        return GSON.toJson(person);
     }
 
     /**

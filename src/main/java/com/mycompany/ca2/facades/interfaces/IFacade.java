@@ -6,6 +6,7 @@
 package com.mycompany.ca2.facades.interfaces;
 
 import com.mycompany.ca2.entities.Company;
+import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
 import java.util.List;
 
@@ -15,20 +16,18 @@ import java.util.List;
  */
 public interface IFacade {
     
+    public InfoEntity addInfoEntity(InfoEntity infoEntity);
+    public InfoEntity editInfoEntity(InfoEntity infoEntity);
+    public InfoEntity deleteInfoEntity(InfoEntity infoEntity);
+    
     /* person methods */
     public List<Person> getAllPersons();
     public Person getPersonById(int personId);
     public List<Person> getPersonsByHobby(String hobby);
-    public Person addPerson(Person person);
-    public Person editPerson(Person person);
-    public Person deletePerson(Person person);
     
     /* company methods */
     public List<Company> getAllCompanies();
     public Company getCompanyById(int companyId);
     public Company getCompanyByCvr(int cvr);
-    public Company addCompany(Company company);
-    public Company editCompany(Company company);
-    public Company deleteCompany(Company company);
     
 }
