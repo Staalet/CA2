@@ -80,7 +80,12 @@ public class Facade implements IFacade {
     }
     @Override
     public Company deleteCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+//        EntityManager em = emf.createEntityManager();
+//        
+//        em.createNamedQuery("")
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
 
 }
