@@ -26,17 +26,40 @@ public class Facade implements IFacade {
 
     @Override
     public List<Person> getAllPersons() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
+            
+            return persons.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Person getPersonById(int personId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            return em.find(Person.class, personId);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public List<Person> getPersonsByHobby(String hobby) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Person> personsHobby = em.createQuery("SELECT p FROM Person p JOIN p.hobbies h WHERE h.name = :hobbyName", Person.class);
+            personsHobby.setParameter("hobbyName", hobby);
+            
+            return personsHobby.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -56,7 +79,15 @@ public class Facade implements IFacade {
 
     @Override
     public List<Company> getAllCompanies() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            TypedQuery<Company> companies = em.createQuery("SELECT c FROM Company c", Company.class);
+            
+            return companies.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -80,12 +111,16 @@ public class Facade implements IFacade {
     }
     @Override
     public Company deleteCompany(Company company) {
-    
-//        EntityManager em = emf.createEntityManager();
-//        
-//        em.createNamedQuery("")
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.find(Company.class, company);
+            em.remove(company);
+            
+            return company;
+        } finally {
+            em.close();
+        }
     }
 
 }
