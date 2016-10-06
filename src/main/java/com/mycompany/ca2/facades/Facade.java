@@ -7,6 +7,7 @@ package com.mycompany.ca2.facades;
 
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.Person;
+import static com.mycompany.ca2.entities.development.Company_.cvr;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -65,12 +66,39 @@ public class Facade implements IFacade {
 
     @Override
     public Person addPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try {
+            em.getTransaction().begin();
+            Person p = new Person();
+            p.setFirstName(person.getFirstName());
+            p.setLastName(person.getLastName());
+            p.setHobbies(person.getHobbies());
+            em.persist(p);
+            em.getTransaction().commit();
+            return p;
+        }finally {
+            em.close();
+        }
     }
 
     @Override
     public Person editPerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+        
+        try{
+            em.getTransaction().begin();
+           Person p = em.find(Person.class, person);
+            
+            p.setFirstName(person.getFirstName());
+            p.setLastName(person.getLastName());
+            p.setHobbies(person.getHobbies());
+            em.persist(p);
+            em.getTransaction().commit();
+            return p;
+        }finally {
+            em.close();
+        }
     }
 
     @Override
@@ -105,11 +133,11 @@ public class Facade implements IFacade {
     @Override
     public Company getCompanyByCvr(int cvr) {
         EntityManager em = emf.createEntityManager();
-        
+
         try {
             TypedQuery<Company> company = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :companyCvr", Company.class);
             company.setParameter("companyCvr", cvr);
-            
+
             return company.getSingleResult();
         } finally {
             em.close();
@@ -118,12 +146,43 @@ public class Facade implements IFacade {
 
     @Override
     public Company addCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Company c = new Company();
+            c.setCvr(company.getCvr());
+            c.setDescription(company.getDescription());
+            c.setMarketValue(company.getMarketValue());
+            c.setName(company.getName());
+            c.setNumEmployees(company.getNumEmployees());
+            em.persist(company);
+            em.getTransaction().commit();
+            return company;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public Company editCompany(Company company) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            em.find(Company.class, company);
+            Company c = new Company();
+            c.setCvr(company.getCvr());
+            c.setDescription(company.getDescription());
+            c.setMarketValue(company.getMarketValue());
+            c.setName(company.getName());
+            c.setNumEmployees(company.getNumEmployees());
+            em.persist(c);
+            em.getTransaction().commit();
+            return c;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
