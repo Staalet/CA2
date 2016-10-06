@@ -17,7 +17,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.DELETE;
 import static javax.ws.rs.HttpMethod.POST;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -77,13 +79,36 @@ public class CompanyResource {
         Company company = FACADE.getCompanyByCvr(cvr);
         return GSON.toJson(company);
     }
-    
+
     @PUT
     @Path("add")
+    @Consumes
     @Produces(MediaType.APPLICATION_JSON)
-    public Company addCompany() {
-    return addCompany();
-}
+    public String addCompany(String JsonCompany) {
+        Company company = GSON.fromJson(JsonCompany, Company.class);
+        Company c = (Company) FACADE.addInfoEntity(company);
+        return GSON.toJson(c);
+    }
+
+    @POST
+    @Path("edit")
+    @Consumes
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editCompany(@PathParam("id") int id, String JsonCompany) {
+        Company company = GSON.fromJson(JsonCompany, Company.class);
+        Company c = (Company) FACADE.addInfoEntity(company);
+        return GSON.toJson(c);
+    }
+    
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deleteCompany(@PathParam("id") int id){
+        Company company = (Company) FACADE.deleteInfoEntity(id);
+        
+        return GSON.toJson(company);
+        
+    }
 
     /**
      * PUT method for updating or creating an instance of CompanyResource
