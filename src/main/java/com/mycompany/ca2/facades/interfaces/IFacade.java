@@ -17,8 +17,8 @@ import java.util.List;
 public interface IFacade {
     
     public InfoEntity addInfoEntity(InfoEntity infoEntity);
-    public InfoEntity editInfoEntity(InfoEntity infoEntity);
-    public InfoEntity deleteInfoEntity(InfoEntity infoEntity);
+    public InfoEntity editInfoEntity(int infoEntityId, InfoEntity infoEntity);
+    public InfoEntity deleteInfoEntity(int infoEntityId);
     
     /* person methods */
     public List<Person> getAllPersons();

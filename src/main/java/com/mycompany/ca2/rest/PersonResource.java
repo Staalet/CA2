@@ -17,7 +17,9 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -54,6 +56,37 @@ public class PersonResource {
         throw new UnsupportedOperationException();
     }
     
+    @PUT
+    @Path("add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addPerson(String jsonPerson) {
+        Person person = GSON.fromJson(jsonPerson, Person.class);
+        Person p = (Person) FACADE.addInfoEntity(person);
+        
+        return GSON.toJson(p);
+    }
+    
+    @POST
+    @Path("edit/{id: \\d+}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String editPerson(@PathParam("id") int id, String jsonPerson) {
+        Person person = GSON.fromJson(jsonPerson, Person.class);
+        Person p = (Person) FACADE.editInfoEntity(id, person);
+        
+        return GSON.toJson(p);
+    }
+    
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String deletePerson(@PathParam("id") int id) {
+        Person person = (Person) FACADE.deleteInfoEntity(id);
+        
+        return GSON.toJson(person);
+    }
+    
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
@@ -64,7 +97,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("{id: \\d+}")
+    @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
         Person person = FACADE.getPersonById(id);
@@ -73,7 +106,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("{hobby: [a-zA-Z]}")
+    @Path("hobby/{hobby: [a-zA-Z]}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonsByHobby(@PathParam("hobby") String hobby) {
         List<Person> people = FACADE.getPersonsByHobby(hobby);
