@@ -55,7 +55,7 @@ public class PersonResource {
     }
     
     @GET
-    @Path("complete")
+    @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllPersons() {
         List<Person> people = FACADE.getAllPersons();
@@ -64,12 +64,21 @@ public class PersonResource {
     }
     
     @GET
-    @Path("complete/{id: \\d+}")
+    @Path("{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getPersonById(@PathParam("id") int id) {
         Person person = FACADE.getPersonById(id);
         
         return GSON.toJson(person);
+    }
+    
+    @GET
+    @Path("{hobby: [a-zA-Z]}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getPersonsByHobby(@PathParam("hobby") String hobby) {
+        List<Person> people = FACADE.getPersonsByHobby(hobby);
+        
+        return GSON.toJson(people);
     }
 
     /**
