@@ -67,7 +67,7 @@ public class Facade implements IFacade {
     @Override
     public Person addPerson(Person person) {
         EntityManager em = emf.createEntityManager();
-        
+
         try {
             em.getTransaction().begin();
             Person p = new Person();
@@ -77,7 +77,7 @@ public class Facade implements IFacade {
             em.persist(p);
             em.getTransaction().commit();
             return p;
-        }finally {
+        } finally {
             em.close();
         }
     }
@@ -85,25 +85,35 @@ public class Facade implements IFacade {
     @Override
     public Person editPerson(Person person) {
         EntityManager em = emf.createEntityManager();
-        
-        try{
+
+        try {
             em.getTransaction().begin();
-           Person p = em.find(Person.class, person);
-            
+            Person p = em.find(Person.class, person);
+
             p.setFirstName(person.getFirstName());
             p.setLastName(person.getLastName());
             p.setHobbies(person.getHobbies());
             em.persist(p);
             em.getTransaction().commit();
             return p;
-        }finally {
+        } finally {
             em.close();
         }
     }
 
     @Override
     public Person deletePerson(Person person) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, person.getId());
+            em.remove(p);
+            em.getTransaction().commit();
+            return p;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -158,7 +168,7 @@ public class Facade implements IFacade {
             c.setNumEmployees(company.getNumEmployees());
             em.persist(company);
             em.getTransaction().commit();
-            return company;
+            return c;
         } finally {
             em.close();
         }
@@ -170,8 +180,7 @@ public class Facade implements IFacade {
 
         try {
             em.getTransaction().begin();
-            em.find(Company.class, company);
-            Company c = new Company();
+            Company c = em.find(Company.class, company);
             c.setCvr(company.getCvr());
             c.setDescription(company.getDescription());
             c.setMarketValue(company.getMarketValue());
@@ -190,10 +199,10 @@ public class Facade implements IFacade {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.find(Company.class, company);
-            em.remove(company);
+           Company c = em.find(Company.class, company.getId());
+            em.remove(c);
             em.getTransaction().commit();
-            return company;
+            return c;
         } finally {
             em.close();
         }
