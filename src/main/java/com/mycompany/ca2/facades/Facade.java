@@ -42,12 +42,12 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public InfoEntity editInfoEntity(InfoEntity infoEntity) {
+    public InfoEntity editInfoEntity(int infoEntityId, InfoEntity infoEntity) {
         EntityManager em = emf.createEntityManager();
         
         try {
             em.getTransaction().begin();
-            em.find(infoEntity.getClass(), infoEntity.getId());
+            em.find(infoEntity.getClass(), infoEntityId);
             em.merge(infoEntity);
             em.getTransaction().commit();
             
@@ -58,17 +58,16 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public InfoEntity deleteInfoEntity(InfoEntity infoEntity) {
+    public InfoEntity deleteInfoEntity(int infoEntityId) {
         EntityManager em = emf.createEntityManager();
         
         try {
             em.getTransaction().begin();
-            
-            InfoEntity entity = em.find(InfoEntity.class, infoEntity.getId());
+            InfoEntity entity = em.find(InfoEntity.class, infoEntityId);
             em.remove(entity);
             em.getTransaction().commit();
             
-            return infoEntity;
+            return entity;
         } finally {
             em.close();
         }
