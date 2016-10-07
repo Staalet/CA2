@@ -6,10 +6,8 @@
 package com.mycompany.ca2.facades;
 
 import com.mycompany.ca2.entities.Company;
-import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
 import com.mycompany.ca2.facades.interfaces.IFacade;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -62,8 +60,6 @@ public class FacadeTest {
         
         Person person = new Person();
         person.setFirstName("John");
-        person.setLastName("Doe");
-        person.setHobbies(null);
         
         Person expResult = person;
         Person result = (Person) facade.addInfoEntity(person);
@@ -81,8 +77,6 @@ public class FacadeTest {
         int infoEntityId = 1;
         Person person = new Person();
         person.setFirstName("Foo");
-        person.setLastName("Bar");
-        person.setHobbies(null);
         
         Person expResult = person;
         Person result = (Person) facade.editInfoEntity(infoEntityId, person);
@@ -100,8 +94,6 @@ public class FacadeTest {
         int infoEntityId = 11;
         Person person = new Person();
         person.setFirstName("Foo");
-        person.setLastName("Bar");
-        person.setHobbies(null);
         
         Person expResult = person;
         Person result = (Person) facade.deleteInfoEntity(infoEntityId);
@@ -130,15 +122,12 @@ public class FacadeTest {
         System.out.println("getPersonById");
         
         int personId = 6;
-        Person person = new Person();
-        person.setFirstName("Person 6");
-        person.setLastName("Person 6");
-        person.setHobbies(null);
+        String firstName = "Person 6";
         
-        Person expResult = person;
+        String expResult = firstName;
         Person result = facade.getPersonById(personId);
         
-        assertEquals(expResult.getFirstName(), result.getFirstName());
+        assertEquals(expResult, result.getFirstName());
     }
 
     /**
@@ -161,12 +150,11 @@ public class FacadeTest {
     @Test
     public void testGetAllCompanies() {
         System.out.println("getAllCompanies");
-        Facade instance = null;
-        List<Company> expResult = null;
-        List<Company> result = instance.getAllCompanies();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        int expResult = 10;
+        List<Company> result = facade.getAllCompanies();
+        
+        assertEquals(expResult, result.size());
     }
 
     /**
@@ -175,13 +163,14 @@ public class FacadeTest {
     @Test
     public void testGetCompanyById() {
         System.out.println("getCompanyById");
-        int companyId = 0;
-        Facade instance = null;
-        Company expResult = null;
-        Company result = instance.getCompanyById(companyId);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        int companyId = 14;
+        String name = "Company 4";
+        
+        String expResult = name;
+        Company result = facade.getCompanyById(companyId);
+        
+        assertEquals(expResult, result.getName());
     }
 
     /**
@@ -190,13 +179,14 @@ public class FacadeTest {
     @Test
     public void testGetCompanyByCvr() {
         System.out.println("getCompanyByCvr");
-        int cvr = 0;
-        Facade instance = null;
-        Company expResult = null;
-        Company result = instance.getCompanyByCvr(cvr);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        int cvr = 75971439;
+        String name = "Company 9";
+        
+        String expResult = name;
+        Company result = facade.getCompanyByCvr(cvr);
+        
+        assertEquals(expResult, result.getName());
     }
     
 }
