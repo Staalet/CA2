@@ -7,7 +7,6 @@ package com.mycompany.ca2.rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.mycompany.ca2.entities.Person;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
@@ -44,17 +43,6 @@ public class PersonResource {
      */
     public PersonResource() {
     }
-
-    /**
-     * Retrieves representation of an instance of com.mycompany.ca2.PersonResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
     
     @PUT
     @Path("add")
@@ -79,7 +67,7 @@ public class PersonResource {
     }
     
     @DELETE
-    @Path("delete")
+    @Path("delete/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public String deletePerson(@PathParam("id") int id) {
         Person person = (Person) FACADE.deleteInfoEntity(id);
@@ -112,14 +100,5 @@ public class PersonResource {
         List<Person> people = FACADE.getPersonsByHobby(hobby);
         
         return GSON.toJson(people);
-    }
-
-    /**
-     * PUT method for updating or creating an instance of PersonResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
     }
 }
