@@ -61,16 +61,16 @@ public class PersonResourceIT {
     /**
      * Test of getJson method, of class PersonResource.
      */
-    @Test
-    public void testGetJson() {
-        System.out.println("getJson");
-        PersonResource instance = new PersonResource();
-        String expResult = "";
-        String result = instance.getJson();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testGetJson() {
+//        System.out.println("getJson");
+//        PersonResource instance = new PersonResource();
+//        String expResult = "";
+//        String result = instance.getJson();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
 
     /**
      * Test of addPerson method, of class PersonResource.
@@ -177,14 +177,14 @@ public class PersonResourceIT {
     /**
      * Test of putJson method, of class PersonResource.
      */
-    @Test
-    public void testPutJson() {
-        System.out.println("putJson");
-        String content = "";
-        PersonResource instance = new PersonResource();
-        instance.putJson(content);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    @Test
+//    public void testPutJson() {
+//        System.out.println("putJson");
+//        String content = "";
+//        PersonResource instance = new PersonResource();
+//        instance.putJson(content);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }
