@@ -48,10 +48,10 @@ public class Facade implements IFacade {
         try {
             em.getTransaction().begin();
             em.find(infoEntity.getClass(), infoEntityId);
-            em.merge(infoEntity);
+            InfoEntity entity = em.merge((Person) infoEntity);
             em.getTransaction().commit();
             
-            return infoEntity;
+            return entity;
         } finally {
             em.close();
         }
