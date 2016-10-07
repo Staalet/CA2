@@ -27,6 +27,14 @@ public class PersonResourceIT {
     }
     
     @BeforeClass
+    public static void setUpBeforeAll() {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 8080;
+        RestAssured.basePath = "/CA2";
+        RestAssured.defaultParser = Parser.JSON;
+    }
+
+    @BeforeClass
     public static void setUpClass() {
     }
     
@@ -41,7 +49,15 @@ public class PersonResourceIT {
     @After
     public void tearDown() {
     }
-
+    
+    @Test
+    public void serverIsRunning() {
+        given().
+        when().get().
+        then().
+        statusCode(200);
+    }
+    
     /**
      * Test of getJson method, of class PersonResource.
      */
@@ -105,30 +121,42 @@ public class PersonResourceIT {
     /**
      * Test of getAllPersons method, of class PersonResource.
      */
-    @Test
-    public void testGetAllPersons() {
-        System.out.println("getAllPersons");
-        PersonResource instance = new PersonResource();
-        String expResult = "";
-        String result = instance.getAllPersons();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+//    @Test
+//    public void testGetAllPersons() {
+//        when().get("/api/person/all").
+//        then().
+//        statusCode(200).
+//        body("firstName", equalTo(""), "lastName", equalTo(""));
+//    }
+    
     /**
      * Test of getPersonById method, of class PersonResource.
      */
     @Test
     public void testGetPersonById() {
-        System.out.println("getPersonById");
-        int id = 0;
-        PersonResource instance = new PersonResource();
-        String expResult = "";
-        String result = instance.getPersonById(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        given().pathParam("id", 1).
+        when().get("/api/person/id/{id}").
+        then().
+        statusCode(200).
+        body("firstName", equalTo("foo"), "lastName", equalTo("bar"));
+    }
+    
+    @Test
+    public void testGetCompanyById() {
+        given().pathParam("id", 1).
+        when().get("/api/company/id/{id}").
+        then().
+        statusCode(200).
+        body("name", equalTo("nike"), "description", equalTo("fedtfedtfedt"), "cvr", equalTo(12345678), "NumEmployees", equalTo(42), "marketValue", equalTo(100000));
+    }
+    
+    @Test
+    public void testGetCompanyByCvr() {
+        given().pathParam("cvr", 12345678).
+        when().get("/api/company/cvr/{cvr}").
+        then().
+        statusCode(200).
+        body("name", equalTo("nike"), "description", equalTo("fedtfedtfedt"), "cvr", equalTo(12345678), "NumEmployees", equalTo(42), "marketValue", equalTo(100000));
     }
 
     /**
