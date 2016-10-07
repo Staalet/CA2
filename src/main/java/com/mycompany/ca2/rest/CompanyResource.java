@@ -5,6 +5,7 @@
  */
 package com.mycompany.ca2.rest;
 
+import Exceptions.DataNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mycompany.ca2.entities.Company;
@@ -86,9 +87,9 @@ public class CompanyResource {
     @GET
     @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCompanyById(@PathParam("id") int id) {
+    public String getCompanyById(@PathParam("id") int id) throws DataNotFoundException {
         Company company = FACADE.getCompanyById(id);
-        
+       
         return GSON.toJson(company);
     }
 
