@@ -89,7 +89,13 @@ public class CompanyResource {
     @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
     public String getCompanyById(@PathParam("id") int id) throws DataNotFoundException {
-        Company company = FACADE.getCompanyById(id);
+        Company company = new Company();
+        try{
+            
+        company = FACADE.getCompanyById(id);
+        } catch (DataNotFoundException ex) {
+            ex.getMessage();
+        }
        
         return GSON.toJson(company);
     }

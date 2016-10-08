@@ -25,9 +25,9 @@ public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFound
         ErrorMessage errorMessage = new ErrorMessage();
         errorMessage.setId(Integer.SIZE);
         errorMessage.setDocumentation("sd");
-        errorMessage.setErrorCode(500);
+        errorMessage.setErrorCode(404);
         errorMessage.setErrorMessage("lol");
-        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorMessage).build();          
+        return Response.status(Status.NOT_FOUND).entity(errorMessage).build();          
     }
 
 }
