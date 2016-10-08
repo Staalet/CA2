@@ -5,7 +5,8 @@
  */
 package com.mycompany.ca2.exceptions;
 
-import exceptions.ErrorEntity.ErrorMessage;
+
+import com.mycompany.ca2.exceptions.ErrorEntity.ErrorMessage;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -20,11 +21,13 @@ public class DataNotFoundExceptionMapper implements ExceptionMapper<DataNotFound
 
     @Override
     public Response toResponse(DataNotFoundException ex) {
-        ErrorMessage errorMessage = new ErrorMessage(0, ex.getMessage(), 404, "hej");
-
-        return Response.status(Status.NOT_FOUND)
-                
-                .build();
+        
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.setId(Integer.SIZE);
+        errorMessage.setDocumentation("sd");
+        errorMessage.setErrorCode(500);
+        errorMessage.setErrorMessage("lol");
+        return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorMessage).build();          
     }
 
 }
