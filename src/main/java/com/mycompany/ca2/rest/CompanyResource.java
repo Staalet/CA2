@@ -46,21 +46,22 @@ public class CompanyResource {
     
     @PUT
     @Path("add")
-    @Consumes
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String addCompany(String JsonCompany) {
         Company company = GSON.fromJson(JsonCompany, Company.class);
         Company c = (Company) FACADE.addInfoEntity(company);
+        
         return GSON.toJson(c);
     }
 
     @POST
     @Path("edit/{id: \\d+}")
-    @Consumes
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String editCompany(@PathParam("id") int id, String jsonCompany) {
         Company company = GSON.fromJson(jsonCompany, Company.class);
-        Company c = (Company) FACADE.addInfoEntity(company);
+        Company c = (Company) FACADE.editInfoEntity(id, company);
         
         return GSON.toJson(c);
     }
