@@ -128,17 +128,18 @@ public class Facade implements IFacade {
     @Override
     public Company getCompanyById(int companyId) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
-        Company companyid = em.find(Company.class, companyId);
-
+        
         try {
-            if (companyid == null) {
-                throw new DataNotFoundException("CompanyID " + companyId + " notFound");
+            Company company = em.find(Company.class, companyId);
+            
+            if (company == null) {
+                throw new DataNotFoundException("Company with ID " + companyId + " not found.");
             }
+            
+            return company;
         } finally {
             em.close();
         }
-
-        return companyid;
     }
 
     @Override
