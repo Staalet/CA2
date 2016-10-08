@@ -17,63 +17,542 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="col-md-4">Firstname</th>
-                                <th class="col-md-6">Lastname</th>
-                                <th class="col-md-2">Action</th>
+                                <th class="col-md-3">First name</th>
+                                <th class="col-md-4">Last name</th>
+                                <th class="col-md-4">Hobbies</th>
+                                <th class="col-md-1"></th>
                             </tr>
                         </thead>
                         <tr>
                             <td>Malte</td>
                             <td>Petersen</td>
-                            <td>
-                                <div class="glyphicon glyphicon-pencil" id="edit_person"></div>
-                                <div class="glyphicon glyphicon-remove" id="remove_person"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Lucas</td>
-                            <td>Fredmark</td>
-                            <td>
-                                <div class="glyphicon glyphicon-pencil" id="edit_person"></div>
-                                <div class="glyphicon glyphicon-remove" id="remove_person"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Thomas</td>
-                            <td>Staal</td>
-                            <td>
-                                <div class="glyphicon glyphicon-pencil" id="edit_person"></div>
-                                <div class="glyphicon glyphicon-remove" id="remove_person"></div>
+                            <td>Gaming</td>
+                            <td class="text-right">
+                                <div class="edit_person glyphicon glyphicon-pencil"></div>
+                                <div class="remove_person glyphicon glyphicon-remove"></div>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <div class="col-md-4 hidden"> <!-- Vises kun når en person bliver edited -->
-                    <h4>Edit person</h4> 
-                    <form id="edit_person_form" class="form-horizontal">
-                        <input type="text" class="form-control" id="new_first_name" placeholder="First name" value="old value">
-                        <br>
-                        <input type="text" class="form-control" id="new_last_name" placeholder="Last name" value="old value">
-                        <br>
-                        <button type="submit" class="btn btn-default" id="edit_person">Submit changes</button>
-                    </form>
+                <div class="col-md-6">
+                    <h4>Company table</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-2">Name</th>
+                                <th class="col-md-4">Description</th>
+                                <th class="col-md-2">CVR</th>
+                                <th class="col-md-1">Employees</th>
+                                <th class="col-md-2">Value</th>
+                                <th class="col-md-1"></th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td>IBM</td>
+                            <td>Computer company</td>
+                            <td>39871023</td>
+                            <td>1000</td>
+                            <td>$1 million</td>
+                            <td class="text-right">
+                                <div class="edit_company glyphicon glyphicon-pencil"></div>
+                                <div class="remove_company glyphicon glyphicon-remove"></div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <h4>Add person</h4>
-                    <form id="add_person_form" class="form-horizontal">
-                        <input type="text" class="form-control" id="first_name" placeholder="First name">
-                        <br>
-                        <input type="text" class="form-control" id="last_name" placeholder="Last name">
-                        <br>
-                        <button type="submit" class="btn btn-default" id="add_person">Add person</button>
-                    </form>
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        <h4>Add person</h4>
+                        <form id="add_person_form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_firstname_add" placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_lastname_add" placeholder="Last name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_hobbies_add" placeholder="Hobbies (separated by comma)">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Add person</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 hidden"> <!-- Vises kun når en person bliver edited -->
+                        <h4>Edit person</h4>
+                        <form id="edit_person_form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_firstname_edit" placeholder="First name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_lastname_edit" placeholder="Last name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="person_hobbies_edit" placeholder="Hobbies (separated by comma)">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Submit changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-6">
+                        <h4>Add company</h4>
+                        <form id="add_company_form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_name_add" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_desc_add" placeholder="Description">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_cvr_add" placeholder="CVR">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_empl_add" placeholder="Number of employees">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_value_add" placeholder="Market value">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Add company</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 hidden"> <!-- Vises kun når en company bliver edited -->
+                        <h4>Edit company</h4>
+                        <form id="edit_company_form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_name_edit" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_desc_edit" placeholder="Description">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_cvr_edit" placeholder="CVR">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_empl_edit" placeholder="Number of employees">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="company_value_edit" placeholder="Market value">
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Submit changes</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            
+            <h4>API description</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-md-1">HTTP Method</th>
+                        <th class="col-md-1">URI</th>
+                        <th class="col-md-4">Parameters</th>
+                        <th class="col-md-2">HTTP Status Codes</th>
+                        <th class="col-md-4">Response Body</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>PUT</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/add</dt>
+                            <dd>Add person</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "John",
+    "lastName": "Doe",
+    "hobbies": [
+        {
+            "name": "Programming",
+            "description": "I love programming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "John",
+    "lastName": "Doe",
+    "hobbies": [
+        {
+            "name": "Programming",
+            "description": "I love programming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/edit/{id}</dt>
+                            <dd>Edit person with ID</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "hobbies": [
+        {
+            "name": "Gaming",
+            "description": "I love gaming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "hobbies": [
+        {
+            "name": "Gaming",
+            "description": "I love gaming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/delete/{id}</dt>
+                            <dd>Delete person with ID</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "hobbies": [
+        {
+            "name": "Gaming",
+            "description": "I love gaming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/all</dt>
+                            <dd>Get all persons</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>[
+    {
+        "firstName": "John",
+        "lastName": "Doe",
+        "hobbies": [
+            {
+                "name": "Programming",
+                "description": "I love programming!"
+            }
+        ]
+    },
+    {
+        "firstName": "Foo",
+        "lastName": "Bar",
+        "hobbies": [
+            {
+                "name": "Gaming",
+                "description": "I love gaming!"
+            }
+        ]
+    }
+]</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/id/{id}</dt>
+                            <dd>Get person with ID</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "hobbies": [
+        {
+            "name": "Gaming",
+            "description": "I love gaming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/person/hobby/{hobby}</dt>
+                            <dd>Get person with hobby</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "firstName": "Foo",
+    "lastName": "Bar",
+    "hobbies": [
+        {
+            "name": "Gaming",
+            "description": "I love gaming!"
+        }
+    ]
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>PUT</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/add</dt>
+                            <dd>Add company</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Google",
+    "description": "King of the interwebz",
+    "cvr": "92683092",
+    "NumEmployees": "2000",
+    "marketValue": "$500 billion"
+}</code></pre>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Google",
+    "description": "King of the interwebz",
+    "cvr": "92683092",
+    "NumEmployees": "2000",
+    "marketValue": "$500 billion"
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>POST</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/edit/{id}</dt>
+                            <dd>Edit company with ID</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Microsoft",
+    "description": "The ones who made Windows",
+    "cvr": "93650194",
+    "NumEmployees": "2000",
+    "marketValue": "$450 billion"
+}</code></pre>
+                    </td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Microsoft",
+    "description": "The ones who made Windows",
+    "cvr": "93650194",
+    "NumEmployees": "2000",
+    "marketValue": "$450 billion"
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>DELETE</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/delete/{id}</dt>
+                            <dd>Delete company with ID</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Microsoft",
+    "description": "The ones who made Windows",
+    "cvr": "93650194",
+    "NumEmployees": "2000",
+    "marketValue": "$450 billion"
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/all</dt>
+                            <dd>Get all companies</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>[
+    {
+        "name": "Google",
+        "description": "King of the interwebz",
+        "cvr": "92683092",
+        "NumEmployees": "2000",
+        "marketValue": "$500 billion"
+    },
+    {
+        "name": "Microsoft",
+        "description": "The ones who made Windows",
+        "cvr": "93650194",
+        "NumEmployees": "2000",
+        "marketValue": "$450 billion"
+    }
+]</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/id/{id}</dt>
+                            <dd>Get company with ID</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Microsoft",
+    "description": "The ones who made Windows",
+    "cvr": "93650194",
+    "NumEmployees": "2000",
+    "marketValue": "$450 billion"
+}</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td>GET</td>
+                    <td>
+                        <dl>
+                            <dt>/api/company/cvr/{cvr}</dt>
+                            <dd>Get company with CVR</dd>
+                        </dl>
+                    </td>
+                    <td>No parameters.</td>
+                    <td>
+                        <dl>
+                            <dt>200</dt>
+                            <dd>Success</dd>
+                        </dl>
+                    </td>
+                    <td>
+                        Example:
+                        <pre><code>{
+    "name": "Google",
+    "description": "King of the interwebz",
+    "cvr": "92683092",
+    "NumEmployees": "2000",
+    "marketValue": "$500 billion"
+}</code></pre>
+                    </td>
+                </tr>
+            </table>
         </div>
-        
-    <script src="js/main.js" type="text/javascript"></script>
+        <script src="js/main.js" type="text/javascript"></script>
     </body>
 </html>
