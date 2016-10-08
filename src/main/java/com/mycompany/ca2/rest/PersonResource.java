@@ -8,6 +8,7 @@ package com.mycompany.ca2.rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mycompany.ca2.entities.Person;
+import com.mycompany.ca2.exceptions.PersonNotFoundException;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
@@ -78,7 +79,7 @@ public class PersonResource {
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllPersons() {
+    public String getAllPersons() throws PersonNotFoundException {
         List<Person> people = FACADE.getAllPersons();
         
         return GSON.toJson(people);
@@ -87,7 +88,7 @@ public class PersonResource {
     @GET
     @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonById(@PathParam("id") int id) {
+    public String getPersonById(@PathParam("id") int id) throws PersonNotFoundException {
         Person person = FACADE.getPersonById(id);
         
         return GSON.toJson(person);
@@ -96,7 +97,7 @@ public class PersonResource {
     @GET
     @Path("hobby/{hobby: [a-zA-Z]}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonsByHobby(@PathParam("hobby") String hobby) {
+    public String getPersonsByHobby(@PathParam("hobby") String hobby) throws PersonNotFoundException {
         List<Person> people = FACADE.getPersonsByHobby(hobby);
         
         return GSON.toJson(people);

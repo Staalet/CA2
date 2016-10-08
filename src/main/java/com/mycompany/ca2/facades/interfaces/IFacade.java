@@ -5,11 +5,11 @@
  */
 package com.mycompany.ca2.facades.interfaces;
 
-import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
-import groovy.json.JsonException;
+import com.mycompany.ca2.exceptions.CompanyNotFoundException;
+import com.mycompany.ca2.exceptions.PersonNotFoundException;
 import java.util.List;
 
 /**
@@ -23,13 +23,13 @@ public interface IFacade {
     public InfoEntity deleteInfoEntity(int infoEntityId);
     
     /* person methods */
-    public List<Person> getAllPersons();
-    public Person getPersonById(int personId);
-    public List<Person> getPersonsByHobby(String hobby);
+    public List<Person> getAllPersons() throws PersonNotFoundException;
+    public Person getPersonById(int personId) throws PersonNotFoundException;
+    public List<Person> getPersonsByHobby(String hobby) throws PersonNotFoundException;
     
     /* company methods */
-    public List<Company> getAllCompanies();
-    public Company getCompanyById(int companyId)throws DataNotFoundException;
-    public Company getCompanyByCvr(int cvr);
+    public List<Company> getAllCompanies() throws CompanyNotFoundException;
+    public Company getCompanyById(int companyId) throws CompanyNotFoundException;
+    public Company getCompanyByCvr(int cvr) throws CompanyNotFoundException;
     
 }
