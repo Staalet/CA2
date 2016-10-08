@@ -5,9 +5,11 @@
  */
 package com.mycompany.ca2.facades.interfaces;
 
+import Exceptions.DataNotFoundException;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
+import groovy.json.JsonException;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public interface IFacade {
     
     /* company methods */
     public List<Company> getAllCompanies();
-    public Company getCompanyById(int companyId);
+    public Company getCompanyById(int companyId)throws DataNotFoundException;
     public Company getCompanyByCvr(int cvr);
     
 }

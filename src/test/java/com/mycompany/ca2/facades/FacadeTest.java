@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
  *
  * @author lucasmfredmark
  */
-public class FacadeTest {
+//public class FacadeTest {
 //    private static EntityManagerFactory emf;
 //    private static IFacade facade;
 //    private EntityManager em;
@@ -188,5 +188,5 @@ public class FacadeTest {
 //        
 //        assertEquals(expResult, result.getName());
 //    }
-    
-}
+//    
+//}

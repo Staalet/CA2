@@ -9,22 +9,22 @@ package Exceptions;
  *
  * @author Staal
  */
-public class JsonExceptions extends Exception {
+public class DataNotFoundException extends Exception {
 
     /**
-     * Creates a new instance of <code>JsonExceptions</code> without detail message.
+     * Creates a new instance of <code>DataNotFoundException</code> without
+     * detail message.
      */
-    public JsonExceptions() {
+    public DataNotFoundException() {
     }
 
     /**
-     * Constructs an instance of <code>JsonExceptions</code> with the specified
-     * detail message.
+     * Constructs an instance of <code>DataNotFoundException</code> with the
+     * specified detail message.
      *
      * @param msg the detail message.
      */
-    
-    public JsonExceptions(String msg) {
+    public DataNotFoundException(String msg) {
         super(msg);
     }
 }
