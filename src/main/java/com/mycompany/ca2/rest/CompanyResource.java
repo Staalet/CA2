@@ -12,6 +12,8 @@ import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Persistence;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -88,16 +90,14 @@ public class CompanyResource {
     @GET
     @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getCompanyById(@PathParam("id") int id) throws DataNotFoundException {
-        Company company = new Company();
-        try{
+    public String getCompanyById(@PathParam("id") int id) {
+        try {
+            Company company = FACADE.getCompanyById(id);
             
-        company = FACADE.getCompanyById(id);
+            return GSON.toJson(company);
         } catch (DataNotFoundException ex) {
-            ex.getMessage();
+            return GSON.toJson(ex.getMessage());
         }
-       
-        return GSON.toJson(company);
     }
 
     @GET
