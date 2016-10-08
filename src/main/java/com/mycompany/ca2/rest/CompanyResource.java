@@ -5,7 +5,7 @@
  */
 package com.mycompany.ca2.rest;
 
-import Exceptions.DataNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mycompany.ca2.entities.Company;

@@ -5,7 +5,7 @@
  */
 package com.mycompany.ca2.facades.interfaces;
 
-import Exceptions.DataNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;

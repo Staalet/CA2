@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exceptions.ErrorEntity;
+package com.mycompany.ca2.exceptions.ErrorEntity;
 
-import static com.jayway.restassured.internal.assertion.AssertionSupport.integer;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

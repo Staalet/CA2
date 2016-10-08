@@ -5,15 +5,12 @@
  */
 package com.mycompany.ca2.facades;
 
-import Exceptions.DataNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
 import com.mycompany.ca2.facades.interfaces.IFacade;
-import groovy.json.JsonException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;

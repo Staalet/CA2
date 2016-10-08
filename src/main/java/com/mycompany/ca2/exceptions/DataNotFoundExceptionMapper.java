@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Exceptions;
+package com.mycompany.ca2.exceptions;
 
-import Exceptions.ErrorEntity.ErrorMessage;
+import exceptions.ErrorEntity.ErrorMessage;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
