@@ -15,13 +15,11 @@ import java.io.StringWriter;
 public class ErrorMessage {
     private int code;
     private String message;
-    private String description;
     private String stackTrace;
 
     public ErrorMessage(int code, Throwable ex, boolean debug) {
         this.code = code;
         this.message = ex.getMessage();
-        this.description = ex.getMessage();
         
         if (debug) {
             StringWriter sw = new StringWriter();
@@ -44,14 +42,6 @@ public class ErrorMessage {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getStackTrace() {

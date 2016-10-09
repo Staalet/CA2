@@ -29,7 +29,7 @@ public class Hobby implements Serializable {
     private String description;
     
     @ManyToMany(mappedBy = "hobbies", cascade={CascadeType.PERSIST})
-    private List<Person> persons;
+    private transient List<Person> persons;
 
     public Integer getId() {
         return id;

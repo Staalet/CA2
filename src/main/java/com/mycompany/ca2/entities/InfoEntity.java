@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,10 +32,10 @@ public class InfoEntity implements Serializable {
     private Integer id;
     private String email;
 
-    @ManyToOne(cascade={CascadeType.PERSIST})
+    @ManyToOne(cascade={CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Address address;
 
-    @OneToMany(mappedBy = "infoEntity", cascade={CascadeType.PERSIST})
+    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Phone> phones;
 
     public Integer getId() {
@@ -67,6 +68,14 @@ public class InfoEntity implements Serializable {
 
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
+    }
+    
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
+    }
+    
+    public void removePhone(Phone phone) {
+        this.phones.remove(phone);
     }
 
     @Override

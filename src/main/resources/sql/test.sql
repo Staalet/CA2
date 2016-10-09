@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.28)
 # Database: ca2
-# Generation Time: 2016-10-07 08:25:33 +0000
+# Generation Time: 2016-10-09 01:34:56 +0000
 # ************************************************************
 
 
@@ -58,11 +58,11 @@ DROP TABLE IF EXISTS `COMPANY`;
 
 CREATE TABLE `COMPANY` (
   `ID` int(11) NOT NULL,
-  `NUMEMPLOYEES` varchar(255) DEFAULT NULL,
   `CVR` varchar(255) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `MARKETVALUE` varchar(255) DEFAULT NULL,
   `NAME` varchar(255) DEFAULT NULL,
+  `NUMEMPLOYEES` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   CONSTRAINT `FK_COMPANY_ID` FOREIGN KEY (`ID`) REFERENCES `INFOENTITY` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -70,18 +70,18 @@ CREATE TABLE `COMPANY` (
 LOCK TABLES `COMPANY` WRITE;
 /*!40000 ALTER TABLE `COMPANY` DISABLE KEYS */;
 
-INSERT INTO `COMPANY` (`ID`, `NUMEMPLOYEES`, `CVR`, `DESCRIPTION`, `MARKETVALUE`, `NAME`)
+INSERT INTO `COMPANY` (`ID`, `CVR`, `DESCRIPTION`, `MARKETVALUE`, `NAME`, `NUMEMPLOYEES`)
 VALUES
-	(11,'86','91906979','Description 1','5025','Company 1'),
-	(12,'18','91625556','Description 2','5999','Company 2'),
-	(13,'91','49943021','Description 3','7963','Company 3'),
-	(14,'0','26308319','Description 4','7641','Company 4'),
-	(15,'70','27793461','Description 5','838','Company 5'),
-	(16,'7','50723315','Description 6','5315','Company 6'),
-	(17,'94','46485882','Description 7','3383','Company 7'),
-	(18,'47','77350138','Description 8','8546','Company 8'),
-	(19,'64','75971439','Description 9','6742','Company 9'),
-	(20,'44','64554167','Description 10','605','Company 10');
+	(11,'63863566','Description 1','594','Company 1','27'),
+	(12,'58422152','Description 2','5381','Company 2','99'),
+	(13,'88959009','Description 3','6035','Company 3','51'),
+	(14,'26589803','Description 4','6221','Company 4','9'),
+	(15,'22743192','Description 5','6430','Company 5','58'),
+	(16,'59790537','Description 6','766','Company 6','26'),
+	(17,'29118787','Description 7','7710','Company 7','63'),
+	(18,'29735808','Description 8','1350','Company 8','68'),
+	(19,'23633733','Description 9','8643','Company 9','4'),
+	(20,'32457581','Description 10','7079','Company 10','14');
 
 /*!40000 ALTER TABLE `COMPANY` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -164,6 +164,22 @@ VALUES
 UNLOCK TABLES;
 
 
+# Dump of table INFOENTITY_PHONE
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `INFOENTITY_PHONE`;
+
+CREATE TABLE `INFOENTITY_PHONE` (
+  `InfoEntity_ID` int(11) NOT NULL,
+  `phones_ID` int(11) NOT NULL,
+  PRIMARY KEY (`InfoEntity_ID`,`phones_ID`),
+  KEY `FK_INFOENTITY_PHONE_phones_ID` (`phones_ID`),
+  CONSTRAINT `FK_INFOENTITY_PHONE_InfoEntity_ID` FOREIGN KEY (`InfoEntity_ID`) REFERENCES `INFOENTITY` (`ID`),
+  CONSTRAINT `FK_INFOENTITY_PHONE_phones_ID` FOREIGN KEY (`phones_ID`) REFERENCES `PHONE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 # Dump of table PERSON
 # ------------------------------------------------------------
 
@@ -203,10 +219,10 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `PERSON_HOBBY`;
 
 CREATE TABLE `PERSON_HOBBY` (
-  `hobbies_ID` int(11) NOT NULL,
   `persons_ID` int(11) NOT NULL,
-  PRIMARY KEY (`hobbies_ID`,`persons_ID`),
-  KEY `FK_PERSON_HOBBY_persons_ID` (`persons_ID`),
+  `hobbies_ID` int(11) NOT NULL,
+  PRIMARY KEY (`persons_ID`,`hobbies_ID`),
+  KEY `FK_PERSON_HOBBY_hobbies_ID` (`hobbies_ID`),
   CONSTRAINT `FK_PERSON_HOBBY_hobbies_ID` FOREIGN KEY (`hobbies_ID`) REFERENCES `HOBBY` (`ID`),
   CONSTRAINT `FK_PERSON_HOBBY_persons_ID` FOREIGN KEY (`persons_ID`) REFERENCES `INFOENTITY` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -214,7 +230,7 @@ CREATE TABLE `PERSON_HOBBY` (
 LOCK TABLES `PERSON_HOBBY` WRITE;
 /*!40000 ALTER TABLE `PERSON_HOBBY` DISABLE KEYS */;
 
-INSERT INTO `PERSON_HOBBY` (`hobbies_ID`, `persons_ID`)
+INSERT INTO `PERSON_HOBBY` (`persons_ID`, `hobbies_ID`)
 VALUES
 	(1,1),
 	(2,2),
@@ -240,10 +256,7 @@ CREATE TABLE `PHONE` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `NUMBER` int(11) DEFAULT NULL,
-  `INFOENTITY_ID` int(11) DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `FK_PHONE_INFOENTITY_ID` (`INFOENTITY_ID`),
-  CONSTRAINT `FK_PHONE_INFOENTITY_ID` FOREIGN KEY (`INFOENTITY_ID`) REFERENCES `INFOENTITY` (`ID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

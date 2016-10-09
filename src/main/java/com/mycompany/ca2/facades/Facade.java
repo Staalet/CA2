@@ -8,8 +8,7 @@ package com.mycompany.ca2.facades;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
-import com.mycompany.ca2.exceptions.CompanyNotFoundException;
-import com.mycompany.ca2.exceptions.PersonNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -44,28 +43,38 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public InfoEntity editInfoEntity(int infoEntityId, InfoEntity infoEntity) {
+    public InfoEntity editInfoEntity(InfoEntity infoEntity) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
-            em.find(infoEntity.getClass(), infoEntityId);
-            InfoEntity entity = em.merge(infoEntity);
+            InfoEntity entity = em.find(infoEntity.getClass(), infoEntity.getId());
+            
+            if (entity == null) {
+                throw new DataNotFoundException("Could not edit InfoEntity with ID " + infoEntity.getId() + ".");
+            }
+            
+            InfoEntity e = em.merge(infoEntity);
             em.getTransaction().commit();
             
-            return entity;
+            return e;
         } finally {
             em.close();
         }
     }
 
     @Override
-    public InfoEntity deleteInfoEntity(int infoEntityId) {
+    public InfoEntity deleteInfoEntity(int infoEntityId) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
             em.getTransaction().begin();
             InfoEntity entity = em.find(InfoEntity.class, infoEntityId);
+            
+            if (entity == null) {
+                throw new DataNotFoundException("Could not delete InfoEntity with ID " + infoEntityId + ".");
+            }
+            
             em.remove(entity);
             em.getTransaction().commit();
             
@@ -76,15 +85,15 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public List<Person> getAllPersons() throws PersonNotFoundException {
+    public List<Person> getAllPersons() throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
-
+        
         try {
             TypedQuery<Person> persons = em.createQuery("SELECT p FROM Person p", Person.class);
             List<Person> p = persons.getResultList();
             
             if (p == null) {
-                throw new PersonNotFoundException("No persons were found.");
+                throw new DataNotFoundException("No persons were found.");
             }
             
             return p;
@@ -94,14 +103,14 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public Person getPersonById(int personId) throws PersonNotFoundException {
+    public Person getPersonById(int personId) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
             Person p = em.find(Person.class, personId);
             
             if (p == null) {
-                throw new PersonNotFoundException("Person with ID " + personId + " not found.");
+                throw new DataNotFoundException("Person with ID " + personId + " not found.");
             }
             
             return p;
@@ -111,7 +120,7 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public List<Person> getPersonsByHobby(String hobby) throws PersonNotFoundException {
+    public List<Person> getPersonsByHobby(String hobby) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -121,7 +130,7 @@ public class Facade implements IFacade {
             List<Person> p = personsHobby.getResultList();
             
             if (p == null) {
-                throw new PersonNotFoundException("No persons with hobby " + hobby + " found.");
+                throw new DataNotFoundException("No persons with hobby " + hobby + " found.");
             }
             
             return p;
@@ -131,7 +140,7 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public List<Company> getAllCompanies() throws CompanyNotFoundException {
+    public List<Company> getAllCompanies() throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
@@ -139,7 +148,7 @@ public class Facade implements IFacade {
             List<Company> c = companies.getResultList();
             
             if (c == null) {
-                throw new CompanyNotFoundException("No companies were found.");
+                throw new DataNotFoundException("No companies were found.");
             }
             
             return c;
@@ -149,14 +158,14 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public Company getCompanyById(int companyId) throws CompanyNotFoundException {
+    public Company getCompanyById(int companyId) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
         
         try {
             Company company = em.find(Company.class, companyId);
             
             if (company == null) {
-                throw new CompanyNotFoundException("Company with ID " + companyId + " not found.");
+                throw new DataNotFoundException("Company with ID " + companyId + " not found.");
             }
             
             return company;
@@ -166,17 +175,17 @@ public class Facade implements IFacade {
     }
 
     @Override
-    public Company getCompanyByCvr(int cvr) throws CompanyNotFoundException {
+    public Company getCompanyByCvr(int cvr) throws DataNotFoundException {
         EntityManager em = emf.createEntityManager();
 
         try {
             TypedQuery<Company> company = em.createQuery("SELECT c FROM Company c WHERE c.cvr = :companyCvr", Company.class);
-            company.setParameter("companyCvr", cvr);
+            company.setParameter("companyCvr", String.valueOf(cvr));
             
             Company c = company.getSingleResult();
             
             if (c == null) {
-                throw new CompanyNotFoundException("Company with CVR " + cvr + " not found.");
+                throw new DataNotFoundException("Company with CVR " + cvr + " not found.");
             }
             
             return c;

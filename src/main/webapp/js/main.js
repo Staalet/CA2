@@ -1,12 +1,68 @@
 $(function() {
-    var api = {
-        init: function() {
-            this
+    var app = {
+        api: {
+            url: 'api/',
+            call: function(method, url, data, callback) {
+                $.ajax({
+                    type: method,
+                    url: url,
+                    data: data,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    success: callback
+                });
+            }
         },
-        call: function() {
+        init: function() {
             
+        },
+        bindEvents: function() {
+            $('#add_person_form').submit(this.events.person.add);
+            $('#edit_person_form').submit(this.events.person.edit);
+            $('#add_company_form').submit(this.events.company.add);
+            $('#edit_company_form').submit(this.events.company.edit);
+            
+            $('.edit_person').click(this.events.company.edit);
+            $('.delete_person').click(this.events.person.remove());
+        },
+        events: {
+            person: {
+                add: function() {
+                    
+                },
+                edit: function() {
+                    
+                },
+                remove: function() {
+                    
+                }
+            },
+            company: {
+                add: function() {
+                    
+                },
+                edit: function() {
+                    
+                },
+                remove: function() {
+                    
+                }
+            }
+        },
+        callApi: function(method, url, data) {
+            
+        },
+        forms: {
+            submit: function() {
+                
+            },
         }
     };
+    
+    app.init();
+    
     var getAllPersons = function() {
         $.getJSON('api/person/all', function(persons) {
             $('#person-table').find('tr:gt(0)').remove(); // clear existing persons from table before appending
@@ -48,10 +104,28 @@ $(function() {
             '<td>' + company.name + '</td>' +
             '<td>' + company.description + '</td>' +
             '<td>' + company.cvr + '</td>' +
-            '<td>' + company.NumEmployees + '</td>' +
+            '<td>' + company.numEmployees + '</td>' +
             '<td>' + company.marketValue + '</td>' +
             '<td class="text-right"><div class="edit_company glyphicon glyphicon-pencil"></div> <div class="remove_company glyphicon glyphicon-remove"></div></td>' +
             '</tr>'
         );
     };
+    
+    $('form#addPerson').submit(function(event) {
+        event.preventDefault();
+        
+        var method = 'PUT';
+        var url = 'person/add';
+        var formData = $(this).serializeArray();
+        var data = {};
+        var callback = function() {
+            
+        };
+        
+        $(formData).each(function(i, obj) {
+            data[obj.name] = obj.value;
+        });
+        
+        
+    });
 });

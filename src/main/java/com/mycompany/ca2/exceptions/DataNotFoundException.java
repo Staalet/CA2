@@ -9,13 +9,13 @@ package com.mycompany.ca2.exceptions;
  *
  * @author Staal
  */
-public class PersonNotFoundException extends Exception {
+public class DataNotFoundException extends Exception {
 
     /**
      * Creates a new instance of <code>DataNotFoundException</code> without
      * detail message.
      */
-    public PersonNotFoundException() {
+    public DataNotFoundException() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class PersonNotFoundException extends Exception {
      *
      * @param msg the detail message.
      */
-    public PersonNotFoundException(String msg) {
+    public DataNotFoundException(String msg) {
         super(msg);
     }
 }

@@ -8,7 +8,7 @@ package com.mycompany.ca2.rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mycompany.ca2.entities.Person;
-import com.mycompany.ca2.exceptions.PersonNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import com.mycompany.ca2.facades.Facade;
 import com.mycompany.ca2.facades.interfaces.IFacade;
 import java.util.List;
@@ -57,12 +57,12 @@ public class PersonResource {
     }
     
     @POST
-    @Path("edit/{id: \\d+}")
+    @Path("edit")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String editPerson(@PathParam("id") int id, String jsonPerson) {
+    public String editPerson(String jsonPerson) throws DataNotFoundException {
         Person person = GSON.fromJson(jsonPerson, Person.class);
-        Person p = (Person) FACADE.editInfoEntity(id, person);
+        Person p = (Person) FACADE.editInfoEntity(person);
         
         return GSON.toJson(p);
     }
@@ -70,7 +70,7 @@ public class PersonResource {
     @DELETE
     @Path("delete/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deletePerson(@PathParam("id") int id) {
+    public String deletePerson(@PathParam("id") int id) throws DataNotFoundException {
         Person person = (Person) FACADE.deleteInfoEntity(id);
         
         return GSON.toJson(person);
@@ -79,7 +79,7 @@ public class PersonResource {
     @GET
     @Path("all")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getAllPersons() throws PersonNotFoundException {
+    public String getAllPersons() throws DataNotFoundException {
         List<Person> people = FACADE.getAllPersons();
         
         return GSON.toJson(people);
@@ -88,16 +88,16 @@ public class PersonResource {
     @GET
     @Path("id/{id: \\d+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonById(@PathParam("id") int id) throws PersonNotFoundException {
+    public String getPersonById(@PathParam("id") int id) throws DataNotFoundException {
         Person person = FACADE.getPersonById(id);
         
         return GSON.toJson(person);
     }
     
     @GET
-    @Path("hobby/{hobby: [a-zA-Z]}")
+    @Path("hobby/{hobby}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getPersonsByHobby(@PathParam("hobby") String hobby) throws PersonNotFoundException {
+    public String getPersonsByHobby(@PathParam("hobby") String hobby) throws DataNotFoundException {
         List<Person> people = FACADE.getPersonsByHobby(hobby);
         
         return GSON.toJson(people);

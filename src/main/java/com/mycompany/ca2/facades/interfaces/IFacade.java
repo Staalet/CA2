@@ -8,8 +8,7 @@ package com.mycompany.ca2.facades.interfaces;
 import com.mycompany.ca2.entities.Company;
 import com.mycompany.ca2.entities.InfoEntity;
 import com.mycompany.ca2.entities.Person;
-import com.mycompany.ca2.exceptions.CompanyNotFoundException;
-import com.mycompany.ca2.exceptions.PersonNotFoundException;
+import com.mycompany.ca2.exceptions.DataNotFoundException;
 import java.util.List;
 
 /**
@@ -19,17 +18,17 @@ import java.util.List;
 public interface IFacade {
     
     public InfoEntity addInfoEntity(InfoEntity infoEntity);
-    public InfoEntity editInfoEntity(int infoEntityId, InfoEntity infoEntity);
-    public InfoEntity deleteInfoEntity(int infoEntityId);
+    public InfoEntity editInfoEntity(InfoEntity infoEntity) throws DataNotFoundException;
+    public InfoEntity deleteInfoEntity(int infoEntityId) throws DataNotFoundException;
     
     /* person methods */
-    public List<Person> getAllPersons() throws PersonNotFoundException;
-    public Person getPersonById(int personId) throws PersonNotFoundException;
-    public List<Person> getPersonsByHobby(String hobby) throws PersonNotFoundException;
+    public List<Person> getAllPersons() throws DataNotFoundException;
+    public Person getPersonById(int personId) throws DataNotFoundException;
+    public List<Person> getPersonsByHobby(String hobby) throws DataNotFoundException;
     
     /* company methods */
-    public List<Company> getAllCompanies() throws CompanyNotFoundException;
-    public Company getCompanyById(int companyId) throws CompanyNotFoundException;
-    public Company getCompanyByCvr(int cvr) throws CompanyNotFoundException;
+    public List<Company> getAllCompanies() throws DataNotFoundException;
+    public Company getCompanyById(int companyId) throws DataNotFoundException;
+    public Company getCompanyByCvr(int cvr) throws DataNotFoundException;
     
 }
