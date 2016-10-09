@@ -2,32 +2,34 @@
 <html>
     <head>
         <title>CA2</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <div class="container-fluid">
+            <div class="page-header">
+                <h1>CA2 <small>Lucas Fredmark, Thomas Staal, Malte Petersen - Class B, Group 1 - <a href="https://github.com/Staalet/CA2">GitHub</a> - <a href="documentation.html">Documentation</a></small></h1>
+            </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <h4>Person table</h4>
-                    <table id="person-table" class="table table-striped">
+                    <table id="personTable" class="table table-striped">
                         <thead>
                             <tr>
-                                <th class="col-md-3">First name</th>
-                                <th class="col-md-4">Last name</th>
-                                <th class="col-md-4">Hobbies</th>
-                                <th class="col-md-1"></th>
+                                <th class="col-md-5">First name</th>
+                                <th class="col-md-5">Last name</th>
+                                <th class="col-md-2"></th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h4>Company table</h4>
-                    <table id="company-table" class="table table-striped">
+                    <table id="companyTable" class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="col-md-2">Name</th>
@@ -42,7 +44,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="col-md-6">
                         <h4>Add person</h4>
                         <form id="addPerson">
@@ -51,9 +53,6 @@
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="lastName" placeholder="Last name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="hobbies" placeholder="Hobbies (separated by comma)">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">Add person</button>
@@ -70,15 +69,12 @@
                                 <input type="text" class="form-control" name="lastName" placeholder="Last name">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="hobbies" placeholder="Hobbies (separated by comma)">
-                            </div>
-                            <div class="form-group">
                                 <button type="submit" class="btn btn-default">Submit changes</button>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <div class="col-md-6">
                         <h4>Add company</h4>
                         <form id="addCompany">
