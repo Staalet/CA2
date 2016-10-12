@@ -1,3 +1,6 @@
 pre {
     font-size: 10px;
 }
+.editPersonBtn, .deletePersonBtn, .editCompanyBtn, .deleteCompanyBtn {
+    cursor: pointer;
+}
